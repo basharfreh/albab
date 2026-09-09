@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Django
+backend/.env
+backend/media/
+backend/staticfiles/
+db.sqlite3
+
+# Flutter / Dart
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/build/
+**/ios/Pods/
+**/ios/.symlinks/
+**/android/.gradle/
+**/*.g.dart
+**/*.freezed.dart
+
+# Editors / OS
+.DS_Store
+._*
+.idea/
+.vscode/
+*.iml

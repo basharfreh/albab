@@ -1,0 +1,54 @@
+name: albab_core
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.13.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  cached_network_image: ^4.0.0
+  dio: ^5.11.1
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  flutter_secure_storage: ^11.0.0
+  freezed_annotation: ^3.1.0
+  intl: ^0.20.3
+  json_annotation: ^4.12.0
+  shared_preferences: ^2.5.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.16.1
+  freezed: ^4.0.1
+  json_serializable: ^6.14.1
+
+# path_provider_foundation 2.6.0 added an `objective_c`/`ffi` dependency that requires
+# Dart/Flutter's "native assets" build step. On this machine (Xcode CLI tools only, no full
+# Xcode.app) that step crashes the `flutter test` tool itself (a `flutter_tools` bug parsing
+# `otool` output, not anything in this package) — see docs/PROGRESS.md. Pinning back to the
+# last version without that dependency keeps `flutter test`/`flutter run` working; safe to
+# remove once either a full Xcode is installed or upstream fixes the native-assets path.
+dependency_overrides:
+  path_provider_foundation: 2.5.1
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  generate: true
+
+  # Cairo is a variable font (weight axis 200-1000) — there are no separate static weight
+  # files upstream any more, so a single asset covers the 400/600/700 weights AppTypography
+  # requests; Skia interpolates them from the variable font's own weight axis.
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: fonts/Cairo-Variable.ttf

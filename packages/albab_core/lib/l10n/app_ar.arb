@@ -1,0 +1,376 @@
+{
+  "@@locale": "ar",
+  "appName": "الباب العقاري",
+  "@appName": {
+    "description": "App name, shown on the splash/welcome screen"
+  },
+  "commonRetry": "إعادة المحاولة",
+  "commonSave": "حفظ",
+  "commonCancel": "إلغاء",
+  "commonConfirm": "تأكيد",
+  "commonEdit": "تعديل",
+  "commonDelete": "حذف",
+  "commonBack": "رجوع",
+  "commonNext": "التالي",
+  "commonDone": "تم",
+  "commonLoading": "جارٍ التحميل...",
+  "commonViewAll": "عرض الكل",
+  "commonUndo": "تراجع",
+  "authLogin": "تسجيل الدخول",
+  "authRegister": "إنشاء حساب",
+  "authContinueAsGuest": "متابعة كضيف",
+  "authLogout": "تسجيل الخروج",
+  "authPhone": "رقم الهاتف",
+  "authPassword": "كلمة المرور",
+  "authName": "الاسم",
+  "authAgencyName": "اسم المكتب",
+  "authWelcomeTagline": "اعثر على منزلك القادم في الباب",
+  "authNoAccountPrompt": "ليس لديك حساب؟",
+  "authHaveAccountPrompt": "لديك حساب بالفعل؟",
+  "authChooseRole": "نوع الحساب",
+  "authOtpTitle": "تحقق من رقم الهاتف",
+  "authOtpSubtitle": "أدخل الرمز المرسل إلى {phone}",
+  "@authOtpSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "authOtpDebugCode": "(للتجربة) الرمز: {code}",
+  "@authOtpDebugCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "authOtpResendIn": "إعادة الإرسال خلال {seconds} ثانية",
+  "@authOtpResendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "authOtpResend": "إعادة إرسال الرمز",
+  "authOtpVerify": "تحقق",
+  "authOtpVerified": "تم التحقق من رقم الهاتف",
+  "authOtpSkip": "تخطي الآن",
+  "authGuestGateTitle": "سجّل الدخول للمتابعة",
+  "authGuestGateMessage": "يلزم إنشاء حساب أو تسجيل الدخول لاستخدام هذه الميزة",
+  "validationRequired": "هذا الحقل مطلوب",
+  "validationPhoneInvalid": "رقم الهاتف غير صحيح",
+  "validationPasswordTooShort": "كلمة المرور يجب ألا تقل عن 8 أحرف",
+  "validationOtpIncomplete": "أدخل الرمز كاملاً",
+  "validationPriceInvalid": "أدخل سعراً صحيحاً",
+  "roleSeeker": "مستخدم",
+  "roleOwner": "مالك عقار",
+  "roleAgency": "مكتب عقاري",
+  "roleAdmin": "مشرف",
+  "propertyTypeHouse": "منزل",
+  "propertyTypeApartment": "شقة",
+  "propertyTypeShop": "محل",
+  "propertyTypeLand": "أرض",
+  "propertyTypeOther": "أخرى",
+  "purposeSale": "للبيع",
+  "purposeRent": "للإيجار",
+  "listingStatusDraft": "مسودة",
+  "listingStatusPending": "قيد المراجعة",
+  "listingStatusPublished": "منشور",
+  "listingStatusRejected": "مرفوض",
+  "listingStatusSold": "مباع",
+  "listingStatusRented": "مؤجر",
+  "listingStatusPaused": "معلق",
+  "navHome": "الرئيسية",
+  "navMessages": "الرسائل",
+  "navAdd": "أضف عقار",
+  "navFavorites": "المفضلة",
+  "navAccount": "الحساب",
+  "dashNavHome": "الرئيسية",
+  "dashNavListings": "العقارات",
+  "dashNavUsers": "المستخدمين",
+  "dashNavPromotions": "الإعلانات",
+  "dashNavTransactions": "المعاملات",
+  "dashNavNotifications": "الإشعارات",
+  "dashNavReports": "التقارير",
+  "dashNavSettings": "الإعدادات",
+  "wizardStepInfo": "المعلومات",
+  "wizardStepLocation": "الموقع",
+  "wizardStepPhotos": "الصور",
+  "wizardStepReview": "مراجعة",
+  "wizardTitleLabel": "عنوان الإعلان",
+  "wizardTitleHint": "مثال: منزل في حي الحسين",
+  "wizardPriceLabel": "السعر",
+  "wizardNegotiable": "قابل للتفاوض",
+  "wizardDescriptionLabel": "الوصف",
+  "wizardBedroomsCount": "عدد الغرف",
+  "wizardBathroomsCount": "عدد الحمامات",
+  "wizardDragMapHint": "اسحب الخريطة وحدد الموقع بدقة",
+  "wizardConfirmLocation": "تأكيد الموقع",
+  "wizardLandmarkLabel": "أقرب معلم (اختياري)",
+  "wizardLandmarkHint": "مثال: قرب جامع النور",
+  "wizardLocationRequired": "حدد الموقع على الخريطة أولاً",
+  "wizardSetCoverPhoto": "تعيين كصورة رئيسية",
+  "wizardPickFromGallery": "اختر من المعرض",
+  "wizardTakePhoto": "التقط صورة",
+  "wizardPhotosCount": "{count}/15 صور",
+  "@wizardPhotosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wizardPhotosMaxReached": "وصلت إلى الحد الأقصى (15 صورة).",
+  "wizardPhotoDeleted": "تم حذف الصورة.",
+  "wizardPhotosRequired": "أضف صورة واحدة على الأقل.",
+  "wizardPublishListing": "نشر العقار",
+  "wizardModerationNotice": "سيتم مراجعة عقارك خلال 24 ساعة",
+  "wizardSuccessTitle": "تم إرسال عقارك للمراجعة",
+  "wizardSuccessViewListing": "عرض العقار",
+  "wizardSuccessAddAnother": "إضافة عقار آخر",
+  "wizardPromotionEntry": "تمييز هذا العقار",
+  "wizardPromotionComingSoonTitle": "تمييز العقارات",
+  "wizardPromotionComingSoonMessage": "ميزة طلب التمييز ستتوفر قريباً. تواصل مع الدعم للاستفسار عن باقات التمييز.",
+  "wizardQuotaTitle": "وصلت إلى الحد الأقصى",
+  "wizardQuotaUpgradeCta": "الترقية إلى مكتب عقاري",
+  "wizardQuotaUpgradeInfo": "للترقية إلى حساب مكتب عقاري والحصول على حصة أكبر، تواصل مع الدعم.",
+  "wizardExitConfirmTitle": "الخروج من المعالج",
+  "wizardExitConfirmMessage": "تم حفظ عقارك كمسودة، ويمكنك إكماله لاحقاً من عقاراتي.",
+  "wizardExitConfirmContinue": "متابعة التعديل",
+  "wizardExitConfirmExit": "خروج",
+  "locationPickerTitle": "اختر موقع العقار",
+  "searchPlaceholder": "ابحث عن عقار أو موقع",
+  "searchRecentTitle": "عمليات بحث سابقة",
+  "searchRecentClear": "مسح الكل",
+  "filterTitle": "البحث والتصفية",
+  "filterAll": "الكل",
+  "filterPropertyType": "نوع العقار",
+  "filterNeighborhood": "الحي",
+  "filterPrice": "السعر",
+  "filterPriceFrom": "من",
+  "filterPriceTo": "إلى",
+  "filterArea": "المساحة",
+  "filterBedroomsLabel": "عدد الغرف",
+  "filterBedroomsAll": "الكل",
+  "filterBedrooms5Plus": "+5",
+  "filterShowResults": "عرض النتائج ({count})",
+  "@filterShowResults": {
+    "description": "Apply-filters button label with a live result count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterReset": "إعادة تعيين",
+  "mapEmptyTitle": "لا توجد عقارات في هذه المنطقة",
+  "mapEmptyMessage": "جرّب توسيع نطاق البحث",
+  "mapViewToggleMap": "الخريطة",
+  "mapViewToggleList": "القائمة",
+  "mapSearchThisArea": "البحث في هذه المنطقة",
+  "mapMarkersTruncated": "تُعرض أقرب 500 نتيجة فقط. صغّر نطاق البحث لرؤية المزيد.",
+  "listingPropertyInfo": "معلومات العقار",
+  "listingNegotiable": "قابل للتفاوض",
+  "listingWhatsapp": "واتساب",
+  "listingCall": "اتصال",
+  "listingReport": "الإبلاغ عن هذا العقار",
+  "listingSimilar": "عقارات مشابهة",
+  "listingMemberSince": "عضو منذ {date}",
+  "@listingMemberSince": {
+    "description": "Owner block \"member since\" line",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "listingGalleryEmpty": "لا توجد صور لهذا العقار",
+  "commonShare": "مشاركة",
+  "commonMore": "المزيد",
+  "reportSheetTitle": "الإبلاغ عن هذا العقار",
+  "reportReasonLabel": "سبب البلاغ",
+  "reportReasonInappropriate": "محتوى غير لائق",
+  "reportReasonMisleading": "معلومات غير صحيحة",
+  "reportReasonDuplicate": "إعلان مكرر",
+  "reportReasonFraud": "عملية احتيال",
+  "reportReasonOther": "سبب آخر",
+  "reportNoteLabel": "ملاحظة (اختياري)",
+  "reportSubmit": "إرسال البلاغ",
+  "reportSubmitted": "تم إرسال البلاغ.",
+  "shareCaption": "{title} على الباب العقاري: {url}",
+  "@shareCaption": {
+    "description": "Share sheet caption for a listing deep link",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "contactWhatsappMessage": "مرحباً، أنا مهتم بهذا العقار: {title} - {price}",
+  "@contactWhatsappMessage": {
+    "description": "Prefilled WhatsApp message naming the listing title and price",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "contactLaunchFailed": "تعذّر فتح التطبيق المطلوب.",
+  "accountMyListings": "عقاراتي",
+  "accountFavorites": "المفضلة",
+  "accountMessages": "الرسائل",
+  "accountNotifications": "الإشعارات",
+  "accountStats": "إحصائيات مشاهدات عقاراتي",
+  "accountSettings": "الإعدادات",
+  "accountMarkAllRead": "تعليم الكل كمقروء",
+  "myListingsStatusAll": "الكل",
+  "myListingsStatusPublished": "منشور",
+  "myListingsStatusPending": "قيد المراجعة",
+  "myListingsStatusRejected": "مرفوض",
+  "myListingsStatusSoldRented": "مباع/مؤجر",
+  "myListingsActionEdit": "تعديل",
+  "myListingsActionPromote": "تمييز",
+  "myListingsActionPause": "تعليق",
+  "myListingsActionDelete": "حذف",
+  "dashKpiTotalUsers": "إجمالي المستخدمين",
+  "dashKpiTotalListings": "إجمالي العقارات",
+  "dashKpiForSale": "عقارات للبيع",
+  "dashKpiForRent": "عقارات للإيجار",
+  "dashVisitsLast30Days": "الزيارات خلال آخر 30 يوم",
+  "dashListingsByType": "العقارات حسب النوع",
+  "dashLatestListings": "أحدث العقارات المضافة",
+  "dashMostViewed": "أكثر العقارات مشاهدة",
+  "emptyStateDefaultTitle": "لا يوجد شيء هنا بعد",
+  "errorStateDefaultTitle": "حدث خطأ ما",
+  "errorNetwork": "تعذّر الاتصال بالخادم. تحقق من اتصالك بالإنترنت.",
+  "errorTimeout": "انتهت مهلة الاتصال بالخادم.",
+  "errorUnauthorized": "يجب تسجيل الدخول لإتمام هذا الإجراء.",
+  "errorUnknown": "حدث خطأ غير متوقع.",
+  "statsAreaLabel": "المساحة",
+  "statsBedroomsLabel": "غرف النوم",
+  "statsBathroomsLabel": "الحمامات",
+  "areaUnit": "{value} م²",
+  "@areaUnit": {
+    "description": "Formatted area in square meters",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "relativeTimeJustNow": "الآن",
+  "relativeTimeMinutesAgo": "منذ {count} {count, plural, =1{دقيقة} =2{دقيقتين} few{دقائق} other{دقيقة}}",
+  "@relativeTimeMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeTimeHoursAgo": "منذ {count} {count, plural, =1{ساعة} =2{ساعتين} few{ساعات} other{ساعة}}",
+  "@relativeTimeHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeTimeDaysAgo": "منذ {count} {count, plural, =1{يوم} =2{يومين} few{أيام} other{يوم}}",
+  "@relativeTimeDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeTimeWeeksAgo": "منذ {count} {count, plural, =1{أسبوع} =2{أسبوعين} few{أسابيع} other{أسبوع}}",
+  "@relativeTimeWeeksAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeTimeMonthsAgo": "منذ {count} {count, plural, =1{شهر} =2{شهرين} few{أشهر} other{شهر}}",
+  "@relativeTimeMonthsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeTimeYearsAgo": "منذ {count} {count, plural, =1{سنة} =2{سنتين} few{سنوات} other{سنة}}",
+  "@relativeTimeYearsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountGuestPromptTitle": "سجّل الدخول للوصول إلى حسابك",
+  "accountGuestPromptMessage": "المفضلة والرسائل والإشعارات وإضافة العقارات تحتاج إلى حساب.",
+  "myListingsEmptyTitle": "لا توجد عقارات بعد",
+  "myListingsEmptyMessage": "عقاراتك المنشورة وقيد المراجعة تظهر هنا.",
+  "myListingsDeleteConfirmTitle": "حذف العقار؟",
+  "myListingsDeleteConfirmMessage": "لا يمكن التراجع عن هذا الإجراء.",
+  "myListingsActionRepublish": "إعادة النشر",
+  "myListingsRejectionReasonLabel": "سبب الرفض",
+  "myListingsViewsCount": "{count} مشاهدة",
+  "@myListingsViewsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myListingsDeleted": "تم حذف العقار",
+  "myListingsStatusUpdated": "تم تحديث حالة العقار",
+  "statsLast30Days": "آخر 30 يوماً",
+  "statsTotalViews": "إجمالي المشاهدات",
+  "statsTotalContacts": "إجمالي التواصل",
+  "statsByChannelTitle": "التواصل حسب القناة",
+  "statsChannelMessage": "رسالة",
+  "statsPerListingTitle": "أداء كل عقار",
+  "statsEmptyMessage": "لا توجد بيانات مشاهدات بعد.",
+  "favoritesEmptyTitle": "لا توجد عقارات في المفضلة",
+  "favoritesEmptyMessage": "اضغط على أيقونة القلب في أي عقار لإضافته هنا.",
+  "favoritesRemoved": "تمت الإزالة من المفضلة",
+  "messagesEmptyTitle": "لا توجد رسائل بعد",
+  "messagesEmptyMessage": "تواصل مع مالك عقار لبدء محادثة.",
+  "messageInputHint": "اكتب رسالة...",
+  "messageSendFailed": "تعذّر إرسال الرسالة",
+  "messagesConversationEmpty": "ابدأ المحادثة برسالة.",
+  "notificationsEmptyTitle": "لا توجد إشعارات",
+  "notificationsEmptyMessage": "ستظهر التحديثات المتعلقة بعقاراتك ورسائلك هنا.",
+  "notificationsSectionToday": "اليوم",
+  "notificationsSectionYesterday": "أمس",
+  "notificationsSectionEarlier": "سابقاً",
+  "settingsLanguageTitle": "اللغة",
+  "settingsLanguageArabic": "العربية",
+  "settingsLanguageEnglish": "English",
+  "settingsNotificationsTitle": "الإشعارات",
+  "settingsPushToggleLabel": "الإشعارات الفورية",
+  "settingsEditProfile": "تعديل الملف الشخصي",
+  "settingsChangePassword": "تغيير كلمة المرور",
+  "settingsAbout": "حول التطبيق",
+  "settingsAboutBody": "الباب العقاري — منصة عقارية لمدينة الباب، سوريا.",
+  "settingsContactSupport": "تواصل مع الدعم",
+  "settingsContactSupportMessage": "لأي استفسار، تواصل معنا عبر واتساب.",
+  "settingsDeleteAccount": "حذف الحساب",
+  "settingsDeleteAccountConfirmTitle": "حذف الحساب؟",
+  "settingsDeleteAccountConfirmMessage": "سيتم حذف حسابك وكل بياناتك نهائياً.",
+  "settingsNotAvailableMessage": "هذه الميزة غير متاحة حالياً — تواصل مع الدعم.",
+  "settingsVersionLabel": "الإصدار",
+  "editProfileWhatsappLabel": "رقم واتساب (اختياري)",
+  "editProfileSaved": "تم حفظ التغييرات",
+  "editProfileChangePhoto": "تغيير الصورة",
+  "commonSend": "إرسال"
+}
