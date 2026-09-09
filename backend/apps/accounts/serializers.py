@@ -115,6 +115,7 @@ class AdminUserSerializer(UserSerializer):
             "phone",
             "is_phone_verified",
             "is_blocked",
+            "block_reason",
             "created_at",
         ]
         read_only_fields = fields

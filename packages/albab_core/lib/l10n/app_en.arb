@@ -211,6 +211,33 @@
   "dashComingSoonTitle": "Coming soon",
   "dashComingSoonMessage": "This section will be built in a future session.",
   "dashSearchPlaceholder": "Search...",
+  "dashRoleFilterLabel": "Role",
+  "dashRoleFilterAll": "All roles",
+  "dashColPhone": "Phone",
+  "dashColRole": "Role",
+  "dashUserStatusActive": "Active",
+  "dashUserStatusBlocked": "Blocked",
+  "dashUserDetailsTitle": "User details",
+  "dashUserBlock": "Block",
+  "dashUserUnblock": "Unblock",
+  "dashUserBlockReasonLabel": "Block reason",
+  "dashUserBlockReasonRequired": "Enter a reason for blocking",
+  "dashUserBlocked": "User blocked.",
+  "dashUserUnblocked": "User unblocked.",
+  "dashChangeRoleLabel": "Change role",
+  "dashUserRoleChanged": "Role updated.",
+  "dashUserListingsTitle": "Listings",
+  "dashUserBlockedReason": "Blocked — {reason}",
+  "@dashUserBlockedReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "dashEmptyUsersTitle": "No users",
+  "dashEmptyUsersMessage": "No users match this filter.",
+  "commonClose": "Close",
   "emptyStateDefaultTitle": "Nothing here yet",
   "errorStateDefaultTitle": "Something went wrong",
   "errorNetwork": "Couldn't reach the server. Check your internet connection.",

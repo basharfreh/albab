@@ -48,19 +48,66 @@ class AdminRepository {
 
   /// `?ordering=` is the P11 addition (docs/API.md) this same call uses for both "latest
   /// added" (`-created_at`, the default) and "most viewed" (`-views_count`) — see
-  /// `AdminListingQueueView` on the backend.
+  /// `AdminListingQueueView` on the backend. `?owner=` (also P11) is what the المستخدمين
+  /// row drawer uses to fetch one user's listings.
   Future<List<Listing>> fetchAdminListings({
     String? status,
     String ordering = '-created_at',
     int pageSize = 20,
+    int? ownerId,
   }) async {
     try {
       final response = await _api.dio.get<Map<String, dynamic>>(
         '/admin/listings/',
-        queryParameters: {'status': ?status, 'ordering': ordering, 'page_size': pageSize},
+        queryParameters: {
+          'status': ?status,
+          'ordering': ordering,
+          'page_size': pageSize,
+          'owner': ?ownerId,
+        },
       );
       final results = response.data!['results'] as List<dynamic>;
       return results.map((e) => Listing.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// UC-55: `?role=` filter, `?q=` search on name/phone.
+  Future<List<User>> fetchUsers({UserRole? role, String? q}) async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/users/',
+        queryParameters: {'role': ?role?.wireValue, 'q': ?q, 'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results.map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// `reason` is only persisted server-side while the block is in effect (docs/API.md) —
+  /// pass `null`/empty to unblock.
+  Future<User> setUserBlocked(int id, {required bool blocked, String? reason}) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/users/$id/block/',
+        data: {'blocked': blocked, 'reason': ?reason},
+      );
+      return User.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<User> setUserRole(int id, UserRole role) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/users/$id/role/',
+        data: {'role': role.wireValue},
+      );
+      return User.fromJson(response.data!);
     } on DioException catch (e) {
       throw _api.mapError(e);
     }

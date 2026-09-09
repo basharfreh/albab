@@ -1322,6 +1322,126 @@ abstract class AppLocalizations {
   /// **'بحث...'**
   String get dashSearchPlaceholder;
 
+  /// No description provided for @dashRoleFilterLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدور'**
+  String get dashRoleFilterLabel;
+
+  /// No description provided for @dashRoleFilterAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل الأدوار'**
+  String get dashRoleFilterAll;
+
+  /// No description provided for @dashColPhone.
+  ///
+  /// In ar, this message translates to:
+  /// **'الهاتف'**
+  String get dashColPhone;
+
+  /// No description provided for @dashColRole.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدور'**
+  String get dashColRole;
+
+  /// No description provided for @dashUserStatusActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'نشط'**
+  String get dashUserStatusActive;
+
+  /// No description provided for @dashUserStatusBlocked.
+  ///
+  /// In ar, this message translates to:
+  /// **'محظور'**
+  String get dashUserStatusBlocked;
+
+  /// No description provided for @dashUserDetailsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'بيانات المستخدم'**
+  String get dashUserDetailsTitle;
+
+  /// No description provided for @dashUserBlock.
+  ///
+  /// In ar, this message translates to:
+  /// **'حظر'**
+  String get dashUserBlock;
+
+  /// No description provided for @dashUserUnblock.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلغاء الحظر'**
+  String get dashUserUnblock;
+
+  /// No description provided for @dashUserBlockReasonLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'سبب الحظر'**
+  String get dashUserBlockReasonLabel;
+
+  /// No description provided for @dashUserBlockReasonRequired.
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخل سبب الحظر'**
+  String get dashUserBlockReasonRequired;
+
+  /// No description provided for @dashUserBlocked.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حظر المستخدم.'**
+  String get dashUserBlocked;
+
+  /// No description provided for @dashUserUnblocked.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إلغاء حظر المستخدم.'**
+  String get dashUserUnblocked;
+
+  /// No description provided for @dashChangeRoleLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير الدور'**
+  String get dashChangeRoleLabel;
+
+  /// No description provided for @dashUserRoleChanged.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تحديث الدور.'**
+  String get dashUserRoleChanged;
+
+  /// No description provided for @dashUserListingsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'العقارات'**
+  String get dashUserListingsTitle;
+
+  /// No description provided for @dashUserBlockedReason.
+  ///
+  /// In ar, this message translates to:
+  /// **'محظور — {reason}'**
+  String dashUserBlockedReason(String reason);
+
+  /// No description provided for @dashEmptyUsersTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد مستخدمون'**
+  String get dashEmptyUsersTitle;
+
+  /// No description provided for @dashEmptyUsersMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد مستخدمون مطابقون لهذا الفلتر.'**
+  String get dashEmptyUsersMessage;
+
+  /// No description provided for @commonClose.
+  ///
+  /// In ar, this message translates to:
+  /// **'إغلاق'**
+  String get commonClose;
+
   /// No description provided for @emptyStateDefaultTitle.
   ///
   /// In ar, this message translates to:

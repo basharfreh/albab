@@ -9,6 +9,7 @@ import 'features/home/ui/home_screen.dart';
 import 'features/listings/ui/listings_screen.dart';
 import 'features/shell/ui/coming_soon_screen.dart';
 import 'features/shell/ui/dashboard_shell.dart';
+import 'features/users/ui/users_screen.dart';
 
 /// Bridges [authStateProvider] to a plain [Listenable] for go_router's `refreshListenable` —
 /// same glue apps/mobile's router uses.
@@ -49,10 +50,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
           GoRoute(path: '/listings', builder: (context, state) => const ListingsScreen()),
-          GoRoute(
-            path: '/users',
-            builder: (context, state) => const _ComingSoonRoute(path: '/users'),
-          ),
+          GoRoute(path: '/users', builder: (context, state) => const UsersScreen()),
           GoRoute(
             path: '/promotions',
             builder: (context, state) => const _ComingSoonRoute(path: '/promotions'),
@@ -91,7 +89,6 @@ class _ComingSoonRoute extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final title = switch (path) {
-      '/users' => l10n.dashNavUsers,
       '/promotions' => l10n.dashNavPromotions,
       '/transactions' => l10n.dashNavTransactions,
       '/notifications' => l10n.dashNavNotifications,

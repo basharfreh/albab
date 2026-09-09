@@ -280,6 +280,33 @@
   "dashComingSoonTitle": "قيد الإنشاء",
   "dashComingSoonMessage": "هذا القسم سيتوفر في جلسة عمل قادمة.",
   "dashSearchPlaceholder": "بحث...",
+  "dashRoleFilterLabel": "الدور",
+  "dashRoleFilterAll": "كل الأدوار",
+  "dashColPhone": "الهاتف",
+  "dashColRole": "الدور",
+  "dashUserStatusActive": "نشط",
+  "dashUserStatusBlocked": "محظور",
+  "dashUserDetailsTitle": "بيانات المستخدم",
+  "dashUserBlock": "حظر",
+  "dashUserUnblock": "إلغاء الحظر",
+  "dashUserBlockReasonLabel": "سبب الحظر",
+  "dashUserBlockReasonRequired": "أدخل سبب الحظر",
+  "dashUserBlocked": "تم حظر المستخدم.",
+  "dashUserUnblocked": "تم إلغاء حظر المستخدم.",
+  "dashChangeRoleLabel": "تغيير الدور",
+  "dashUserRoleChanged": "تم تحديث الدور.",
+  "dashUserListingsTitle": "العقارات",
+  "dashUserBlockedReason": "محظور — {reason}",
+  "@dashUserBlockedReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "dashEmptyUsersTitle": "لا يوجد مستخدمون",
+  "dashEmptyUsersMessage": "لا يوجد مستخدمون مطابقون لهذا الفلتر.",
+  "commonClose": "إغلاق",
   "emptyStateDefaultTitle": "لا يوجد شيء هنا بعد",
   "errorStateDefaultTitle": "حدث خطأ ما",
   "errorNetwork": "تعذّر الاتصال بالخادم. تحقق من اتصالك بالإنترنت.",

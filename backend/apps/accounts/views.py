@@ -106,7 +106,10 @@ class AdminUserBlockView(APIView):
     def post(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         user.is_blocked = bool(request.data.get("blocked", True))
-        user.save(update_fields=["is_blocked"])
+        # A reason only means something while the block is in effect — unblocking clears it
+        # rather than keeping the last reason around as stale history.
+        user.block_reason = request.data.get("reason", "") if user.is_blocked else ""
+        user.save(update_fields=["is_blocked", "block_reason"])
         return Response(AdminUserSerializer(user).data)
 
 

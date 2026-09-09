@@ -22,6 +22,7 @@ abstract class User with _$User {
     String? whatsappPhone,
     bool? isPhoneVerified,
     bool? isBlocked,
+    String? blockReason,
     int? unreadMessages,
     int? unreadNotifications,
     DateTime? createdAt,

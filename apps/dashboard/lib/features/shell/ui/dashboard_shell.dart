@@ -123,12 +123,21 @@ class _Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-            for (final item in _navItems)
-              _SidebarTile(
-                item: item,
-                collapsed: collapsed,
-                selected: currentPath == item.path,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final item in _navItems)
+                      _SidebarTile(
+                        item: item,
+                        collapsed: collapsed,
+                        selected: currentPath == item.path,
+                      ),
+                  ],
+                ),
               ),
+            ),
           ],
         ),
       ),

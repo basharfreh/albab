@@ -42,13 +42,15 @@ class AdminListingQueueView(generics.ListAPIView):
     (`ordering=-views_count`) dashboard tables — no separate endpoint for either, since both
     are just this same admin listing list sorted differently (brief §8 fixes the endpoint
     surface; this is an allowlisted `ordering` param on the one admin listings path, not a
-    new path).
+    new path). `?owner=` is the same trick again, added for P11's المستخدمين row drawer
+    ("their listings") — an admin-only user-detail view needing one user's listings is the
+    same shape as the moderation queue needing one status's listings.
     """
 
     serializer_class = AdminListingSerializer
     permission_classes = [IsAdminRole]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ["status"]
+    filterset_fields = ["status", "owner"]
     ordering_fields = ["created_at", "views_count"]
     ordering = ["-created_at"]
 

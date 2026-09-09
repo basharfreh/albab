@@ -21,6 +21,17 @@ class TestModerationQueue:
         assert response.status_code == 200
         assert response.data["count"] == 1
 
+    def test_admin_can_filter_queue_by_owner(self):
+        admin = UserFactory(role="admin")
+        owner = UserFactory(role="owner")
+        ListingFactory(owner=owner, status=ListingStatus.PUBLISHED)
+        ListingFactory(status=ListingStatus.PUBLISHED)
+        client = APIClient()
+        client.force_authenticate(admin)
+        response = client.get(reverse("admin-listings"), {"owner": owner.id})
+        assert response.status_code == 200
+        assert response.data["count"] == 1
+
     def test_non_admin_cannot_access_queue(self):
         seeker = UserFactory(role="seeker")
         client = APIClient()

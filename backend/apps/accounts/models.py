@@ -51,6 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     agency_logo = models.ImageField(upload_to="agency_logos/", blank=True, null=True)
     whatsapp_phone = models.CharField(max_length=20, blank=True, null=True)
     is_blocked = models.BooleanField(default=False)
+    block_reason = models.TextField(blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     is_staff = models.BooleanField(default=False)

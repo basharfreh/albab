@@ -69,6 +69,7 @@ class _FakeAdminRepository extends AdminRepository {
     String? status,
     String ordering = '-created_at',
     int pageSize = 20,
+    int? ownerId,
   }) async => [];
 }
 

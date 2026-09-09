@@ -646,6 +646,68 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashSearchPlaceholder => 'بحث...';
 
   @override
+  String get dashRoleFilterLabel => 'الدور';
+
+  @override
+  String get dashRoleFilterAll => 'كل الأدوار';
+
+  @override
+  String get dashColPhone => 'الهاتف';
+
+  @override
+  String get dashColRole => 'الدور';
+
+  @override
+  String get dashUserStatusActive => 'نشط';
+
+  @override
+  String get dashUserStatusBlocked => 'محظور';
+
+  @override
+  String get dashUserDetailsTitle => 'بيانات المستخدم';
+
+  @override
+  String get dashUserBlock => 'حظر';
+
+  @override
+  String get dashUserUnblock => 'إلغاء الحظر';
+
+  @override
+  String get dashUserBlockReasonLabel => 'سبب الحظر';
+
+  @override
+  String get dashUserBlockReasonRequired => 'أدخل سبب الحظر';
+
+  @override
+  String get dashUserBlocked => 'تم حظر المستخدم.';
+
+  @override
+  String get dashUserUnblocked => 'تم إلغاء حظر المستخدم.';
+
+  @override
+  String get dashChangeRoleLabel => 'تغيير الدور';
+
+  @override
+  String get dashUserRoleChanged => 'تم تحديث الدور.';
+
+  @override
+  String get dashUserListingsTitle => 'العقارات';
+
+  @override
+  String dashUserBlockedReason(String reason) {
+    return 'محظور — $reason';
+  }
+
+  @override
+  String get dashEmptyUsersTitle => 'لا يوجد مستخدمون';
+
+  @override
+  String get dashEmptyUsersMessage => 'لا يوجد مستخدمون مطابقون لهذا الفلتر.';
+
+  @override
+  String get commonClose => 'إغلاق';
+
+  @override
   String get emptyStateDefaultTitle => 'لا يوجد شيء هنا بعد';
 
   @override

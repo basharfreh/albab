@@ -648,6 +648,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashSearchPlaceholder => 'Search...';
 
   @override
+  String get dashRoleFilterLabel => 'Role';
+
+  @override
+  String get dashRoleFilterAll => 'All roles';
+
+  @override
+  String get dashColPhone => 'Phone';
+
+  @override
+  String get dashColRole => 'Role';
+
+  @override
+  String get dashUserStatusActive => 'Active';
+
+  @override
+  String get dashUserStatusBlocked => 'Blocked';
+
+  @override
+  String get dashUserDetailsTitle => 'User details';
+
+  @override
+  String get dashUserBlock => 'Block';
+
+  @override
+  String get dashUserUnblock => 'Unblock';
+
+  @override
+  String get dashUserBlockReasonLabel => 'Block reason';
+
+  @override
+  String get dashUserBlockReasonRequired => 'Enter a reason for blocking';
+
+  @override
+  String get dashUserBlocked => 'User blocked.';
+
+  @override
+  String get dashUserUnblocked => 'User unblocked.';
+
+  @override
+  String get dashChangeRoleLabel => 'Change role';
+
+  @override
+  String get dashUserRoleChanged => 'Role updated.';
+
+  @override
+  String get dashUserListingsTitle => 'Listings';
+
+  @override
+  String dashUserBlockedReason(String reason) {
+    return 'Blocked — $reason';
+  }
+
+  @override
+  String get dashEmptyUsersTitle => 'No users';
+
+  @override
+  String get dashEmptyUsersMessage => 'No users match this filter.';
+
+  @override
+  String get commonClose => 'Close';
+
+  @override
   String get emptyStateDefaultTitle => 'Nothing here yet';
 
   @override
