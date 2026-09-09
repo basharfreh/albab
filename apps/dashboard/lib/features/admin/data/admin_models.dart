@@ -63,3 +63,42 @@ class ByTypeSlice {
     count: json['count'] as int,
   );
 }
+
+/// One row of `GET /admin/reports/` (UC-58) — only the fields التقارير's table/actions
+/// need, not the full nested `listing`/`reporter` objects the backend actually returns.
+class AdminReport {
+  const AdminReport({
+    required this.id,
+    required this.listingId,
+    required this.listingTitle,
+    required this.reporterName,
+    required this.reason,
+    required this.note,
+    required this.isOpen,
+    required this.createdAt,
+  });
+
+  final int id;
+  final int listingId;
+  final String listingTitle;
+  final String reporterName;
+  final String reason;
+  final String note;
+  final bool isOpen;
+  final DateTime createdAt;
+
+  factory AdminReport.fromJson(Map<String, dynamic> json) {
+    final listing = json['listing'] as Map<String, dynamic>;
+    final reporter = json['reporter'] as Map<String, dynamic>;
+    return AdminReport(
+      id: json['id'] as int,
+      listingId: listing['id'] as int,
+      listingTitle: listing['title'] as String,
+      reporterName: reporter['name'] as String,
+      reason: json['reason'] as String,
+      note: json['note'] as String? ?? '',
+      isOpen: json['status'] == 'open',
+      createdAt: DateTime.parse(json['created_at'] as String),
+    );
+  }
+}

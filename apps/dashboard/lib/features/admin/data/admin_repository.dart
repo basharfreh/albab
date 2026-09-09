@@ -135,6 +135,31 @@ class AdminRepository {
       throw _api.mapError(e);
     }
   }
+
+  /// UC-58: `?status=` filter (`open`/`closed`).
+  Future<List<AdminReport>> fetchReports({String? status}) async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/reports/',
+        queryParameters: {'status': ?status, 'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results.map((e) => AdminReport.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// The backend only has one terminal action on a report (`close`) — no separate
+  /// resolve/dismiss distinction (see docs/PROGRESS.md's P3 decisions), so this is the one
+  /// action التقارير's "close report" button calls either way.
+  Future<void> closeReport(int id) async {
+    try {
+      await _api.dio.post<void>('/admin/reports/$id/close/');
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
 }
 
 final adminRepositoryProvider = Provider<AdminRepository>((ref) => AdminRepository(ref));

@@ -634,6 +634,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashEmptyListingsMessage => 'لا توجد عقارات مطابقة لهذا الفلتر.';
 
   @override
+  String get dashColListing => 'العقار';
+
+  @override
+  String get dashColReporter => 'المُبلّغ';
+
+  @override
+  String get dashColReason => 'السبب';
+
+  @override
+  String get dashColNote => 'الملاحظة';
+
+  @override
+  String get dashReportStatusOpen => 'مفتوح';
+
+  @override
+  String get dashReportStatusClosed => 'مغلق';
+
+  @override
+  String get dashReportClose => 'إغلاق البلاغ';
+
+  @override
+  String get dashReportClosed => 'تم إغلاق البلاغ.';
+
+  @override
+  String get dashEmptyReportsTitle => 'لا توجد بلاغات';
+
+  @override
+  String get dashEmptyReportsMessage => 'لا توجد بلاغات مطابقة لهذا الفلتر.';
+
+  @override
+  String get dashExportListingsCsv => 'تصدير العقارات (CSV)';
+
+  @override
+  String get dashExportUsersCsv => 'تصدير المستخدمين (CSV)';
+
+  @override
+  String get dashExportDone => 'تم تنزيل الملف.';
+
+  @override
   String get dashSidebarCollapse => 'طي القائمة';
 
   @override

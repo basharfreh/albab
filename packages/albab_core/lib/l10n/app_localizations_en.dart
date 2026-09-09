@@ -635,6 +635,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashEmptyListingsMessage => 'No listings match this filter.';
 
   @override
+  String get dashColListing => 'Listing';
+
+  @override
+  String get dashColReporter => 'Reporter';
+
+  @override
+  String get dashColReason => 'Reason';
+
+  @override
+  String get dashColNote => 'Note';
+
+  @override
+  String get dashReportStatusOpen => 'Open';
+
+  @override
+  String get dashReportStatusClosed => 'Closed';
+
+  @override
+  String get dashReportClose => 'Close report';
+
+  @override
+  String get dashReportClosed => 'Report closed.';
+
+  @override
+  String get dashEmptyReportsTitle => 'No reports';
+
+  @override
+  String get dashEmptyReportsMessage => 'No reports match this filter.';
+
+  @override
+  String get dashExportListingsCsv => 'Export listings (CSV)';
+
+  @override
+  String get dashExportUsersCsv => 'Export users (CSV)';
+
+  @override
+  String get dashExportDone => 'File downloaded.';
+
+  @override
   String get dashSidebarCollapse => 'Collapse menu';
 
   @override

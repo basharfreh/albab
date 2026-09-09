@@ -1298,6 +1298,84 @@ abstract class AppLocalizations {
   /// **'لا توجد عقارات مطابقة لهذا الفلتر.'**
   String get dashEmptyListingsMessage;
 
+  /// No description provided for @dashColListing.
+  ///
+  /// In ar, this message translates to:
+  /// **'العقار'**
+  String get dashColListing;
+
+  /// No description provided for @dashColReporter.
+  ///
+  /// In ar, this message translates to:
+  /// **'المُبلّغ'**
+  String get dashColReporter;
+
+  /// No description provided for @dashColReason.
+  ///
+  /// In ar, this message translates to:
+  /// **'السبب'**
+  String get dashColReason;
+
+  /// No description provided for @dashColNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'الملاحظة'**
+  String get dashColNote;
+
+  /// No description provided for @dashReportStatusOpen.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفتوح'**
+  String get dashReportStatusOpen;
+
+  /// No description provided for @dashReportStatusClosed.
+  ///
+  /// In ar, this message translates to:
+  /// **'مغلق'**
+  String get dashReportStatusClosed;
+
+  /// No description provided for @dashReportClose.
+  ///
+  /// In ar, this message translates to:
+  /// **'إغلاق البلاغ'**
+  String get dashReportClose;
+
+  /// No description provided for @dashReportClosed.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إغلاق البلاغ.'**
+  String get dashReportClosed;
+
+  /// No description provided for @dashEmptyReportsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد بلاغات'**
+  String get dashEmptyReportsTitle;
+
+  /// No description provided for @dashEmptyReportsMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد بلاغات مطابقة لهذا الفلتر.'**
+  String get dashEmptyReportsMessage;
+
+  /// No description provided for @dashExportListingsCsv.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصدير العقارات (CSV)'**
+  String get dashExportListingsCsv;
+
+  /// No description provided for @dashExportUsersCsv.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصدير المستخدمين (CSV)'**
+  String get dashExportUsersCsv;
+
+  /// No description provided for @dashExportDone.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تنزيل الملف.'**
+  String get dashExportDone;
+
   /// No description provided for @dashSidebarCollapse.
   ///
   /// In ar, this message translates to:

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.accounts.serializers import UserSerializer
 from apps.catalog.serializers import ListingDetailSerializer
 from apps.moderation.models import ListingReport
 
@@ -20,6 +21,7 @@ class ReportCreateSerializer(serializers.Serializer):
 
 class ListingReportSerializer(serializers.ModelSerializer):
     listing = AdminListingSerializer(read_only=True)
+    reporter = UserSerializer(read_only=True)
 
     class Meta:
         model = ListingReport

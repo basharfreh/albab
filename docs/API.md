@@ -58,7 +58,7 @@ Kept current by backend phases. Full interactive schema is served at `/api/docs/
 | GET | `/api/v1/admin/users/` | P3 | `?role=` filter, `?q=` search on name/phone (icontains). `AdminUserSerializer`. `IsAdminRole` |
 | POST | `/api/v1/admin/users/{id}/block/` | P3, reason added P11 | `{blocked: bool}` (default `true`), `{reason}` (optional) — sets `is_blocked` and `block_reason` (persisted while blocked; cleared on unblock). `IsAdminRole` |
 | POST | `/api/v1/admin/users/{id}/role/` | P3 | `{role}` — one of the `UserRole` values. `IsAdminRole` |
-| GET | `/api/v1/admin/reports/` | P3 | `?status=` filter. `IsAdminRole` |
+| GET | `/api/v1/admin/reports/` | P3, `reporter` nested P11 | `?status=` filter. `reporter` is a nested `UserSerializer` (name/role/avatar) as of P11's التقارير screen — was a bare PK before, changed since the dashboard needs the reporter's name to display, not just their id. `IsAdminRole` |
 | POST | `/api/v1/admin/reports/{id}/close/` | P3 | Sets `status=closed`, `handled_by=request.user`. `IsAdminRole` |
 | GET / POST | `/api/v1/admin/promotions/` | P3 | Manages **`Promotion`** instances (a package applied to a listing), not `PromotionPackage` — see PROGRESS.md P3 decisions. POST `{listing, package}` creates one in `pending` status. `IsAdminRole` |
 | GET / POST | `/api/v1/admin/transactions/` | P3 | POST `{user, promotion, amount, method, currency?, reference?, status?}` (`status` defaults to `completed`) records a manual payment; a `completed` transaction immediately activates its `Promotion` (`starts_at`/`ends_at`/`status=active`) and sets `listing.is_featured` + `featured_until`. `IsAdminRole` |
