@@ -568,6 +568,84 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashMostViewed => 'أكثر العقارات مشاهدة';
 
   @override
+  String dashKpiDelta(int count) {
+    return '+$count خلال 30 يوم';
+  }
+
+  @override
+  String get dashLoginTitle => 'دخول لوحة التحكم';
+
+  @override
+  String get dashLoginAdminOnlyError =>
+      'هذا الحساب غير مخوّل بالدخول إلى لوحة التحكم.';
+
+  @override
+  String get dashModerationQueueTitle => 'طابور المراجعة';
+
+  @override
+  String get dashStatusFilterLabel => 'الحالة';
+
+  @override
+  String get dashStatusFilterAll => 'كل الحالات';
+
+  @override
+  String get dashApprove => 'موافقة';
+
+  @override
+  String get dashReject => 'رفض';
+
+  @override
+  String get dashRejectReasonLabel => 'سبب الرفض';
+
+  @override
+  String get dashRejectReasonRequired => 'أدخل سبب الرفض';
+
+  @override
+  String get dashApproved => 'تمت الموافقة على العقار.';
+
+  @override
+  String get dashRejected => 'تم رفض العقار.';
+
+  @override
+  String get dashColTitle => 'العنوان';
+
+  @override
+  String get dashColNeighborhood => 'الحي';
+
+  @override
+  String get dashColPrice => 'السعر';
+
+  @override
+  String get dashColStatus => 'الحالة';
+
+  @override
+  String get dashColDate => 'التاريخ';
+
+  @override
+  String get dashColViews => 'المشاهدات';
+
+  @override
+  String get dashColActions => 'الإجراءات';
+
+  @override
+  String get dashEmptyListingsTitle => 'لا توجد عقارات';
+
+  @override
+  String get dashEmptyListingsMessage => 'لا توجد عقارات مطابقة لهذا الفلتر.';
+
+  @override
+  String get dashSidebarCollapse => 'طي القائمة';
+
+  @override
+  String get dashComingSoonTitle => 'قيد الإنشاء';
+
+  @override
+  String get dashComingSoonMessage => 'هذا القسم سيتوفر في جلسة عمل قادمة.';
+
+  @override
+  String get dashSearchPlaceholder => 'بحث...';
+
+  @override
   String get emptyStateDefaultTitle => 'لا يوجد شيء هنا بعد';
 
   @override

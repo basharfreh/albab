@@ -1172,6 +1172,156 @@ abstract class AppLocalizations {
   /// **'أكثر العقارات مشاهدة'**
   String get dashMostViewed;
 
+  /// No description provided for @dashKpiDelta.
+  ///
+  /// In ar, this message translates to:
+  /// **'+{count} خلال 30 يوم'**
+  String dashKpiDelta(int count);
+
+  /// No description provided for @dashLoginTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'دخول لوحة التحكم'**
+  String get dashLoginTitle;
+
+  /// No description provided for @dashLoginAdminOnlyError.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذا الحساب غير مخوّل بالدخول إلى لوحة التحكم.'**
+  String get dashLoginAdminOnlyError;
+
+  /// No description provided for @dashModerationQueueTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'طابور المراجعة'**
+  String get dashModerationQueueTitle;
+
+  /// No description provided for @dashStatusFilterLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحالة'**
+  String get dashStatusFilterLabel;
+
+  /// No description provided for @dashStatusFilterAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل الحالات'**
+  String get dashStatusFilterAll;
+
+  /// No description provided for @dashApprove.
+  ///
+  /// In ar, this message translates to:
+  /// **'موافقة'**
+  String get dashApprove;
+
+  /// No description provided for @dashReject.
+  ///
+  /// In ar, this message translates to:
+  /// **'رفض'**
+  String get dashReject;
+
+  /// No description provided for @dashRejectReasonLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'سبب الرفض'**
+  String get dashRejectReasonLabel;
+
+  /// No description provided for @dashRejectReasonRequired.
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخل سبب الرفض'**
+  String get dashRejectReasonRequired;
+
+  /// No description provided for @dashApproved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تمت الموافقة على العقار.'**
+  String get dashApproved;
+
+  /// No description provided for @dashRejected.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم رفض العقار.'**
+  String get dashRejected;
+
+  /// No description provided for @dashColTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'العنوان'**
+  String get dashColTitle;
+
+  /// No description provided for @dashColNeighborhood.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحي'**
+  String get dashColNeighborhood;
+
+  /// No description provided for @dashColPrice.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر'**
+  String get dashColPrice;
+
+  /// No description provided for @dashColStatus.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحالة'**
+  String get dashColStatus;
+
+  /// No description provided for @dashColDate.
+  ///
+  /// In ar, this message translates to:
+  /// **'التاريخ'**
+  String get dashColDate;
+
+  /// No description provided for @dashColViews.
+  ///
+  /// In ar, this message translates to:
+  /// **'المشاهدات'**
+  String get dashColViews;
+
+  /// No description provided for @dashColActions.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإجراءات'**
+  String get dashColActions;
+
+  /// No description provided for @dashEmptyListingsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد عقارات'**
+  String get dashEmptyListingsTitle;
+
+  /// No description provided for @dashEmptyListingsMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد عقارات مطابقة لهذا الفلتر.'**
+  String get dashEmptyListingsMessage;
+
+  /// No description provided for @dashSidebarCollapse.
+  ///
+  /// In ar, this message translates to:
+  /// **'طي القائمة'**
+  String get dashSidebarCollapse;
+
+  /// No description provided for @dashComingSoonTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'قيد الإنشاء'**
+  String get dashComingSoonTitle;
+
+  /// No description provided for @dashComingSoonMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذا القسم سيتوفر في جلسة عمل قادمة.'**
+  String get dashComingSoonMessage;
+
+  /// No description provided for @dashSearchPlaceholder.
+  ///
+  /// In ar, this message translates to:
+  /// **'بحث...'**
+  String get dashSearchPlaceholder;
+
   /// No description provided for @emptyStateDefaultTitle.
   ///
   /// In ar, this message translates to:

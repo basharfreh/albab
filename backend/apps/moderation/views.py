@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -34,18 +36,24 @@ class ReportCreateView(APIView):
 
 
 class AdminListingQueueView(generics.ListAPIView):
-    """GET /admin/listings/?status=pending — the moderation queue."""
+    """GET /admin/listings/?status=pending — the moderation queue.
+
+    Also backs P11's "latest added" (`ordering=-created_at`, the default) and "most viewed"
+    (`ordering=-views_count`) dashboard tables — no separate endpoint for either, since both
+    are just this same admin listing list sorted differently (brief §8 fixes the endpoint
+    surface; this is an allowlisted `ordering` param on the one admin listings path, not a
+    new path).
+    """
 
     serializer_class = AdminListingSerializer
     permission_classes = [IsAdminRole]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ["status"]
+    ordering_fields = ["created_at", "views_count"]
+    ordering = ["-created_at"]
 
     def get_queryset(self):
-        return (
-            Listing.objects.select_related("neighborhood", "owner")
-            .prefetch_related("images")
-            .order_by("-created_at")
-        )
+        return Listing.objects.select_related("neighborhood", "owner").prefetch_related("images")
 
 
 class ApproveListingView(APIView):

@@ -569,6 +569,85 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashMostViewed => 'Most viewed';
 
   @override
+  String dashKpiDelta(int count) {
+    return '+$count in 30 days';
+  }
+
+  @override
+  String get dashLoginTitle => 'Dashboard login';
+
+  @override
+  String get dashLoginAdminOnlyError =>
+      'This account is not authorized to access the dashboard.';
+
+  @override
+  String get dashModerationQueueTitle => 'Moderation queue';
+
+  @override
+  String get dashStatusFilterLabel => 'Status';
+
+  @override
+  String get dashStatusFilterAll => 'All statuses';
+
+  @override
+  String get dashApprove => 'Approve';
+
+  @override
+  String get dashReject => 'Reject';
+
+  @override
+  String get dashRejectReasonLabel => 'Rejection reason';
+
+  @override
+  String get dashRejectReasonRequired => 'Enter a rejection reason';
+
+  @override
+  String get dashApproved => 'Listing approved.';
+
+  @override
+  String get dashRejected => 'Listing rejected.';
+
+  @override
+  String get dashColTitle => 'Title';
+
+  @override
+  String get dashColNeighborhood => 'Neighborhood';
+
+  @override
+  String get dashColPrice => 'Price';
+
+  @override
+  String get dashColStatus => 'Status';
+
+  @override
+  String get dashColDate => 'Date';
+
+  @override
+  String get dashColViews => 'Views';
+
+  @override
+  String get dashColActions => 'Actions';
+
+  @override
+  String get dashEmptyListingsTitle => 'No listings';
+
+  @override
+  String get dashEmptyListingsMessage => 'No listings match this filter.';
+
+  @override
+  String get dashSidebarCollapse => 'Collapse menu';
+
+  @override
+  String get dashComingSoonTitle => 'Coming soon';
+
+  @override
+  String get dashComingSoonMessage =>
+      'This section will be built in a future session.';
+
+  @override
+  String get dashSearchPlaceholder => 'Search...';
+
+  @override
   String get emptyStateDefaultTitle => 'Nothing here yet';
 
   @override

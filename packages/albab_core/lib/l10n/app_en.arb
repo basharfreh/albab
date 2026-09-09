@@ -179,6 +179,38 @@
   "dashListingsByType": "Listings by type",
   "dashLatestListings": "Latest listings",
   "dashMostViewed": "Most viewed",
+  "dashKpiDelta": "+{count} in 30 days",
+  "@dashKpiDelta": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashLoginTitle": "Dashboard login",
+  "dashLoginAdminOnlyError": "This account is not authorized to access the dashboard.",
+  "dashModerationQueueTitle": "Moderation queue",
+  "dashStatusFilterLabel": "Status",
+  "dashStatusFilterAll": "All statuses",
+  "dashApprove": "Approve",
+  "dashReject": "Reject",
+  "dashRejectReasonLabel": "Rejection reason",
+  "dashRejectReasonRequired": "Enter a rejection reason",
+  "dashApproved": "Listing approved.",
+  "dashRejected": "Listing rejected.",
+  "dashColTitle": "Title",
+  "dashColNeighborhood": "Neighborhood",
+  "dashColPrice": "Price",
+  "dashColStatus": "Status",
+  "dashColDate": "Date",
+  "dashColViews": "Views",
+  "dashColActions": "Actions",
+  "dashEmptyListingsTitle": "No listings",
+  "dashEmptyListingsMessage": "No listings match this filter.",
+  "dashSidebarCollapse": "Collapse menu",
+  "dashComingSoonTitle": "Coming soon",
+  "dashComingSoonMessage": "This section will be built in a future session.",
+  "dashSearchPlaceholder": "Search...",
   "emptyStateDefaultTitle": "Nothing here yet",
   "errorStateDefaultTitle": "Something went wrong",
   "errorNetwork": "Couldn't reach the server. Check your internet connection.",

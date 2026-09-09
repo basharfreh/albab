@@ -248,6 +248,38 @@
   "dashListingsByType": "العقارات حسب النوع",
   "dashLatestListings": "أحدث العقارات المضافة",
   "dashMostViewed": "أكثر العقارات مشاهدة",
+  "dashKpiDelta": "+{count} خلال 30 يوم",
+  "@dashKpiDelta": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashLoginTitle": "دخول لوحة التحكم",
+  "dashLoginAdminOnlyError": "هذا الحساب غير مخوّل بالدخول إلى لوحة التحكم.",
+  "dashModerationQueueTitle": "طابور المراجعة",
+  "dashStatusFilterLabel": "الحالة",
+  "dashStatusFilterAll": "كل الحالات",
+  "dashApprove": "موافقة",
+  "dashReject": "رفض",
+  "dashRejectReasonLabel": "سبب الرفض",
+  "dashRejectReasonRequired": "أدخل سبب الرفض",
+  "dashApproved": "تمت الموافقة على العقار.",
+  "dashRejected": "تم رفض العقار.",
+  "dashColTitle": "العنوان",
+  "dashColNeighborhood": "الحي",
+  "dashColPrice": "السعر",
+  "dashColStatus": "الحالة",
+  "dashColDate": "التاريخ",
+  "dashColViews": "المشاهدات",
+  "dashColActions": "الإجراءات",
+  "dashEmptyListingsTitle": "لا توجد عقارات",
+  "dashEmptyListingsMessage": "لا توجد عقارات مطابقة لهذا الفلتر.",
+  "dashSidebarCollapse": "طي القائمة",
+  "dashComingSoonTitle": "قيد الإنشاء",
+  "dashComingSoonMessage": "هذا القسم سيتوفر في جلسة عمل قادمة.",
+  "dashSearchPlaceholder": "بحث...",
   "emptyStateDefaultTitle": "لا يوجد شيء هنا بعد",
   "errorStateDefaultTitle": "حدث خطأ ما",
   "errorNetwork": "تعذّر الاتصال بالخادم. تحقق من اتصالك بالإنترنت.",
