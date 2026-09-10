@@ -26,9 +26,17 @@ class AppDropdown<T> extends StatelessWidget {
     return DropdownButtonFormField<T>(
       initialValue: value,
       decoration: InputDecoration(labelText: label),
+      // Without `isExpanded`, the button sizes itself to the widest item's intrinsic width
+      // instead of the space actually available — on a narrow parent (a phone-width browser
+      // window, or any card packed tightly next to a collapsed sidebar) that overflows
+      // instead of truncating. Found live at ~190px available width, not a contrived case.
+      isExpanded: true,
       items: [
         for (final item in items)
-          DropdownMenuItem(value: item, child: Text(labelBuilder(item))),
+          DropdownMenuItem(
+            value: item,
+            child: Text(labelBuilder(item), overflow: TextOverflow.ellipsis),
+          ),
       ],
       onChanged: enabled ? onChanged : null,
     );

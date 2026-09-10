@@ -43,6 +43,7 @@ class NotificationKind(models.TextChoices):
     LISTING_REJECTED = "listing_rejected", "listing_rejected"
     NEW_MESSAGE = "new_message", "new_message"
     PROMOTION_EXPIRING = "promotion_expiring", "promotion_expiring"
+    BROADCAST = "broadcast", "broadcast"
 
 
 class Notification(TimeStampedModel):

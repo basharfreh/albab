@@ -198,49 +198,62 @@ class _TopBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       decoration: const BoxDecoration(
         color: AppColors.surface,
         border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 360),
-              child: TextField(
-                decoration: InputDecoration(
-                  isDense: true,
-                  hintText: l10n.dashSearchPlaceholder,
-                  prefixIcon: const Icon(Icons.search, size: AppIconSizes.inline),
+      // At a narrow enough width (a collapsed-sidebar container, or the browser window
+      // itself shrunk), the fixed-width bell/avatar/username cluster no longer fits next to
+      // even a fully-shrunk search field — a real overflow, not a contrived one (found by
+      // actually rendering at ~350px, the same way the sidebar's own overflow was found).
+      // `LayoutBuilder` reacts to this container's own available width directly, rather than
+      // reusing the sidebar's 1100px page-level breakpoint, which isn't calibrated for this.
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final compact = constraints.maxWidth < 420;
+          return Row(
+            children: [
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 360),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      isDense: true,
+                      hintText: l10n.dashSearchPlaceholder,
+                      prefixIcon: const Icon(Icons.search, size: AppIconSizes.inline),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.lg),
-          const Icon(Icons.notifications_outlined, color: AppColors.textSecondary),
-          const SizedBox(width: AppSpacing.lg),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'logout') ref.read(authRepositoryProvider).logout();
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(value: 'logout', child: Text(l10n.authLogout)),
-            ],
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircleAvatar(
-                  radius: 16,
-                  backgroundColor: AppColors.primaryTint,
-                  child: Icon(Icons.person, color: AppColors.primary, size: 18),
+              const SizedBox(width: AppSpacing.sm),
+              const Icon(Icons.notifications_outlined, color: AppColors.textSecondary),
+              const SizedBox(width: AppSpacing.sm),
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'logout') ref.read(authRepositoryProvider).logout();
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem(value: 'logout', child: Text(l10n.authLogout)),
+                ],
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: AppColors.primaryTint,
+                      child: Icon(Icons.person, color: AppColors.primary, size: 18),
+                    ),
+                    if (!compact) ...[
+                      const SizedBox(width: AppSpacing.sm),
+                      Text(userName ?? '', style: AppTypography.label),
+                    ],
+                  ],
                 ),
-                const SizedBox(width: AppSpacing.sm),
-                Text(userName ?? '', style: AppTypography.label),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

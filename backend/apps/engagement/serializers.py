@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.accounts.models import UserRole
 from apps.accounts.serializers import UserSerializer
 from apps.engagement.models import Conversation, Message, Notification
 
@@ -62,3 +63,22 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = ["id", "kind", "title", "body", "data", "read_at", "created_at"]
         read_only_fields = fields
+
+
+class BroadcastNotificationSerializer(serializers.Serializer):
+    """UC-3: الإشعارات' composer. `target` picks which of `role`/`user_id` (if either) is
+    required."""
+
+    title = serializers.CharField(max_length=200)
+    body = serializers.CharField(max_length=500, required=False, allow_blank=True)
+    target = serializers.ChoiceField(choices=["all", "role", "user"])
+    role = serializers.ChoiceField(choices=UserRole.choices, required=False)
+    user_id = serializers.IntegerField(required=False)
+
+    def validate(self, data):
+        target = data["target"]
+        if target == "role" and not data.get("role"):
+            raise serializers.ValidationError({"role": ["مطلوب عند الإرسال حسب الدور."]})
+        if target == "user" and not data.get("user_id"):
+            raise serializers.ValidationError({"user_id": ["مطلوب عند الإرسال لمستخدم واحد."]})
+        return data

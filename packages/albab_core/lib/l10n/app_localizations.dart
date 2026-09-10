@@ -1898,23 +1898,107 @@ abstract class AppLocalizations {
   /// **'لا توجد إعلانات معلّقة لتحصيلها.'**
   String get dashNoPendingPromotions;
 
+  /// No description provided for @dashNotificationTitleLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'العنوان'**
+  String get dashNotificationTitleLabel;
+
+  /// No description provided for @dashNotificationBodyLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'النص'**
+  String get dashNotificationBodyLabel;
+
+  /// No description provided for @dashNotificationTargetLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإرسال إلى'**
+  String get dashNotificationTargetLabel;
+
+  /// No description provided for @dashNotificationTargetAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل المستخدمين'**
+  String get dashNotificationTargetAll;
+
+  /// No description provided for @dashNotificationTargetRole.
+  ///
+  /// In ar, this message translates to:
+  /// **'حسب الدور'**
+  String get dashNotificationTargetRole;
+
+  /// No description provided for @dashNotificationTargetUser.
+  ///
+  /// In ar, this message translates to:
+  /// **'مستخدم واحد'**
+  String get dashNotificationTargetUser;
+
+  /// No description provided for @dashNotificationRoleLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدور'**
+  String get dashNotificationRoleLabel;
+
+  /// No description provided for @dashNotificationUserLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المستخدم'**
+  String get dashNotificationUserLabel;
+
+  /// No description provided for @dashSendBroadcast.
+  ///
+  /// In ar, this message translates to:
+  /// **'إرسال'**
+  String get dashSendBroadcast;
+
+  /// No description provided for @dashBroadcastSent.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم الإرسال إلى {count} {count, plural, =1{مستخدم} =2{مستخدمين} few{مستخدمين} other{مستخدم}}.'**
+  String dashBroadcastSent(int count);
+
+  /// No description provided for @dashNotificationPreviewLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'معاينة'**
+  String get dashNotificationPreviewLabel;
+
+  /// No description provided for @dashNotificationPreviewEmptyTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'عنوان الإشعار'**
+  String get dashNotificationPreviewEmptyTitle;
+
+  /// No description provided for @dashNotificationPreviewEmptyBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيظهر نص الإشعار هنا.'**
+  String get dashNotificationPreviewEmptyBody;
+
   /// No description provided for @dashSidebarCollapse.
   ///
   /// In ar, this message translates to:
   /// **'طي القائمة'**
   String get dashSidebarCollapse;
 
-  /// No description provided for @dashComingSoonTitle.
+  /// No description provided for @dash404Title.
   ///
   /// In ar, this message translates to:
-  /// **'قيد الإنشاء'**
-  String get dashComingSoonTitle;
+  /// **'الصفحة غير موجودة'**
+  String get dash404Title;
 
-  /// No description provided for @dashComingSoonMessage.
+  /// No description provided for @dash404Message.
   ///
   /// In ar, this message translates to:
-  /// **'هذا القسم سيتوفر في جلسة عمل قادمة.'**
-  String get dashComingSoonMessage;
+  /// **'الرابط الذي حاولت الوصول إليه غير موجود.'**
+  String get dash404Message;
+
+  /// No description provided for @dash404GoHome.
+  ///
+  /// In ar, this message translates to:
+  /// **'العودة للرئيسية'**
+  String get dash404GoHome;
 
   /// No description provided for @dashSearchPlaceholder.
   ///

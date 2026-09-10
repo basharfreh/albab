@@ -307,9 +307,30 @@
   "dashEmptyTransactionsTitle": "No transactions",
   "dashEmptyTransactionsMessage": "No transactions match this filter.",
   "dashNoPendingPromotions": "No pending promotions to bill.",
+  "dashNotificationTitleLabel": "Title",
+  "dashNotificationBodyLabel": "Body",
+  "dashNotificationTargetLabel": "Send to",
+  "dashNotificationTargetAll": "All users",
+  "dashNotificationTargetRole": "By role",
+  "dashNotificationTargetUser": "One user",
+  "dashNotificationRoleLabel": "Role",
+  "dashNotificationUserLabel": "User",
+  "dashSendBroadcast": "Send",
+  "dashBroadcastSent": "Sent to {count} {count, plural, =1{user} other{users}}.",
+  "@dashBroadcastSent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashNotificationPreviewLabel": "Preview",
+  "dashNotificationPreviewEmptyTitle": "Notification title",
+  "dashNotificationPreviewEmptyBody": "Notification body will appear here.",
   "dashSidebarCollapse": "Collapse menu",
-  "dashComingSoonTitle": "Coming soon",
-  "dashComingSoonMessage": "This section will be built in a future session.",
+  "dash404Title": "Page not found",
+  "dash404Message": "The link you tried to reach doesn't exist.",
+  "dash404GoHome": "Back to home",
   "dashSearchPlaceholder": "Search...",
   "dashRoleFilterLabel": "Role",
   "dashRoleFilterAll": "All roles",

@@ -938,13 +938,65 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashNoPendingPromotions => 'لا توجد إعلانات معلّقة لتحصيلها.';
 
   @override
+  String get dashNotificationTitleLabel => 'العنوان';
+
+  @override
+  String get dashNotificationBodyLabel => 'النص';
+
+  @override
+  String get dashNotificationTargetLabel => 'الإرسال إلى';
+
+  @override
+  String get dashNotificationTargetAll => 'كل المستخدمين';
+
+  @override
+  String get dashNotificationTargetRole => 'حسب الدور';
+
+  @override
+  String get dashNotificationTargetUser => 'مستخدم واحد';
+
+  @override
+  String get dashNotificationRoleLabel => 'الدور';
+
+  @override
+  String get dashNotificationUserLabel => 'المستخدم';
+
+  @override
+  String get dashSendBroadcast => 'إرسال';
+
+  @override
+  String dashBroadcastSent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'مستخدم',
+      few: 'مستخدمين',
+      two: 'مستخدمين',
+      one: 'مستخدم',
+    );
+    return 'تم الإرسال إلى $count $_temp0.';
+  }
+
+  @override
+  String get dashNotificationPreviewLabel => 'معاينة';
+
+  @override
+  String get dashNotificationPreviewEmptyTitle => 'عنوان الإشعار';
+
+  @override
+  String get dashNotificationPreviewEmptyBody => 'سيظهر نص الإشعار هنا.';
+
+  @override
   String get dashSidebarCollapse => 'طي القائمة';
 
   @override
-  String get dashComingSoonTitle => 'قيد الإنشاء';
+  String get dash404Title => 'الصفحة غير موجودة';
 
   @override
-  String get dashComingSoonMessage => 'هذا القسم سيتوفر في جلسة عمل قادمة.';
+  String get dash404Message => 'الرابط الذي حاولت الوصول إليه غير موجود.';
+
+  @override
+  String get dash404GoHome => 'العودة للرئيسية';
 
   @override
   String get dashSearchPlaceholder => 'بحث...';

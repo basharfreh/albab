@@ -939,14 +939,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashNoPendingPromotions => 'No pending promotions to bill.';
 
   @override
+  String get dashNotificationTitleLabel => 'Title';
+
+  @override
+  String get dashNotificationBodyLabel => 'Body';
+
+  @override
+  String get dashNotificationTargetLabel => 'Send to';
+
+  @override
+  String get dashNotificationTargetAll => 'All users';
+
+  @override
+  String get dashNotificationTargetRole => 'By role';
+
+  @override
+  String get dashNotificationTargetUser => 'One user';
+
+  @override
+  String get dashNotificationRoleLabel => 'Role';
+
+  @override
+  String get dashNotificationUserLabel => 'User';
+
+  @override
+  String get dashSendBroadcast => 'Send';
+
+  @override
+  String dashBroadcastSent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'users',
+      one: 'user',
+    );
+    return 'Sent to $count $_temp0.';
+  }
+
+  @override
+  String get dashNotificationPreviewLabel => 'Preview';
+
+  @override
+  String get dashNotificationPreviewEmptyTitle => 'Notification title';
+
+  @override
+  String get dashNotificationPreviewEmptyBody =>
+      'Notification body will appear here.';
+
+  @override
   String get dashSidebarCollapse => 'Collapse menu';
 
   @override
-  String get dashComingSoonTitle => 'Coming soon';
+  String get dash404Title => 'Page not found';
 
   @override
-  String get dashComingSoonMessage =>
-      'This section will be built in a future session.';
+  String get dash404Message => 'The link you tried to reach doesn\'t exist.';
+
+  @override
+  String get dash404GoHome => 'Back to home';
 
   @override
   String get dashSearchPlaceholder => 'Search...';

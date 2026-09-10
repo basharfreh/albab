@@ -376,9 +376,30 @@
   "dashEmptyTransactionsTitle": "لا توجد معاملات",
   "dashEmptyTransactionsMessage": "لا توجد معاملات مطابقة لهذا الفلتر.",
   "dashNoPendingPromotions": "لا توجد إعلانات معلّقة لتحصيلها.",
+  "dashNotificationTitleLabel": "العنوان",
+  "dashNotificationBodyLabel": "النص",
+  "dashNotificationTargetLabel": "الإرسال إلى",
+  "dashNotificationTargetAll": "كل المستخدمين",
+  "dashNotificationTargetRole": "حسب الدور",
+  "dashNotificationTargetUser": "مستخدم واحد",
+  "dashNotificationRoleLabel": "الدور",
+  "dashNotificationUserLabel": "المستخدم",
+  "dashSendBroadcast": "إرسال",
+  "dashBroadcastSent": "تم الإرسال إلى {count} {count, plural, =1{مستخدم} =2{مستخدمين} few{مستخدمين} other{مستخدم}}.",
+  "@dashBroadcastSent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashNotificationPreviewLabel": "معاينة",
+  "dashNotificationPreviewEmptyTitle": "عنوان الإشعار",
+  "dashNotificationPreviewEmptyBody": "سيظهر نص الإشعار هنا.",
   "dashSidebarCollapse": "طي القائمة",
-  "dashComingSoonTitle": "قيد الإنشاء",
-  "dashComingSoonMessage": "هذا القسم سيتوفر في جلسة عمل قادمة.",
+  "dash404Title": "الصفحة غير موجودة",
+  "dash404Message": "الرابط الذي حاولت الوصول إليه غير موجود.",
+  "dash404GoHome": "العودة للرئيسية",
   "dashSearchPlaceholder": "بحث...",
   "dashRoleFilterLabel": "الدور",
   "dashRoleFilterAll": "كل الأدوار",

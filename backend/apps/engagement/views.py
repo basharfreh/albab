@@ -6,15 +6,18 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.accounts.models import User
 from apps.analytics.services.events import record_event
 from apps.catalog.models import Listing
+from apps.common.permissions import IsAdminRole
 from apps.engagement.models import Conversation, Notification
 from apps.engagement.serializers import (
+    BroadcastNotificationSerializer,
     ConversationSerializer,
     MessageSerializer,
     NotificationSerializer,
 )
-from apps.engagement.services.notify import notify_new_message
+from apps.engagement.services.notify import broadcast_notification, notify_new_message
 
 
 class ConversationListCreateView(generics.ListCreateAPIView):
@@ -122,3 +125,28 @@ class NotificationMarkReadView(APIView):
             notification.read_at = timezone.now()
             notification.save(update_fields=["read_at"])
         return Response(NotificationSerializer(notification).data)
+
+
+class AdminBroadcastNotificationView(APIView):
+    """UC-3: الإشعارات' composer — `{title, body?, target: all|role|user, role?, user_id?}`."""
+
+    permission_classes = [IsAdminRole]
+
+    def post(self, request):
+        serializer = BroadcastNotificationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        target = data["target"]
+        user = None
+        if target == "user":
+            user = get_object_or_404(User, pk=data["user_id"])
+
+        sent = broadcast_notification(
+            title=data["title"],
+            body=data.get("body", ""),
+            target=target,
+            role=data.get("role"),
+            user=user,
+        )
+        return Response({"sent": sent})

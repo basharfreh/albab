@@ -55,3 +55,33 @@ def notify_promotion_expiring(promotion) -> Notification:
         body=f'تمييز "{promotion.listing.title}" ينتهي قريباً.',
         data={"listing_id": promotion.listing_id, "promotion_id": promotion.id},
     )
+
+
+def broadcast_notification(
+    *, title: str, body: str = "", target: str, role: str | None = None, user=None
+) -> int:
+    """UC-3: الإشعارات' broadcast composer — `target` is `all`/`role`/`user`. Returns how many
+    notifications were created (the dashboard shows this as confirmation). Uses `bulk_create`
+    since `target=all` can mean every user on the platform, not just one; `get_push_backend()`
+    is still called once per notification — a no-op today (`NoOpPushBackend`), so this doesn't
+    cost anything real yet, but a future real backend would want a proper bulk-send API rather
+    than N calls here."""
+    from apps.accounts.models import User
+
+    if target == "user":
+        users = User.objects.filter(pk=user.pk) if user else User.objects.none()
+    elif target == "role":
+        users = User.objects.filter(role=role)
+    else:
+        users = User.objects.all()
+
+    notifications = [
+        Notification(user=recipient, kind=NotificationKind.BROADCAST, title=title, body=body)
+        for recipient in users
+    ]
+    Notification.objects.bulk_create(notifications)
+
+    backend = get_push_backend()
+    for notification in notifications:
+        backend.send(notification)
+    return len(notifications)

@@ -20,4 +20,9 @@ urlpatterns = [
         views.NotificationMarkReadView.as_view(),
         name="notification-read",
     ),
+    path(
+        "admin/notifications/broadcast/",
+        views.AdminBroadcastNotificationView.as_view(),
+        name="admin-notifications-broadcast",
+    ),
 ]

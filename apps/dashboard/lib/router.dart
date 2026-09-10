@@ -7,11 +7,12 @@ import 'features/auth/ui/login_screen.dart';
 import 'features/auth/ui/splash_screen.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/listings/ui/listings_screen.dart';
+import 'features/notifications/ui/notifications_screen.dart';
 import 'features/promotions/ui/promotions_screen.dart';
 import 'features/reports/ui/reports_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
-import 'features/shell/ui/coming_soon_screen.dart';
 import 'features/shell/ui/dashboard_shell.dart';
+import 'features/shell/ui/not_found_screen.dart';
 import 'features/transactions/ui/transactions_screen.dart';
 import 'features/users/ui/users_screen.dart';
 
@@ -30,6 +31,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     refreshListenable: refreshNotifier,
+    errorBuilder: (context, state) => const NotFoundScreen(),
     redirect: (context, state) {
       final authState = ref.read(authStateProvider);
       final location = state.matchedLocation;
@@ -59,7 +61,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/transactions', builder: (context, state) => const TransactionsScreen()),
           GoRoute(
             path: '/notifications',
-            builder: (context, state) => const _ComingSoonRoute(path: '/notifications'),
+            builder: (context, state) => const NotificationsScreen(),
           ),
           GoRoute(path: '/reports', builder: (context, state) => const ReportsScreen()),
           GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
@@ -68,22 +70,3 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-
-/// Resolves a sidebar path to its own nav label (rather than the raw path) for
-/// [ComingSoonScreen]'s title — kept next to the router so route paths and labels never
-/// drift apart.
-class _ComingSoonRoute extends ConsumerWidget {
-  const _ComingSoonRoute({required this.path});
-
-  final String path;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
-    final title = switch (path) {
-      '/notifications' => l10n.dashNavNotifications,
-      _ => path,
-    };
-    return ComingSoonScreen(title: title);
-  }
-}

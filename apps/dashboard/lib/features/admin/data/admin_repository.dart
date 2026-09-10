@@ -401,6 +401,31 @@ class AdminRepository {
       throw _api.mapError(e);
     }
   }
+
+  /// UC-3: `target` is `'all'`/`'role'`/`'user'`. Returns how many users were reached.
+  Future<int> sendBroadcast({
+    required String title,
+    String? body,
+    required String target,
+    UserRole? role,
+    int? userId,
+  }) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/notifications/broadcast/',
+        data: {
+          'title': title,
+          'body': ?body,
+          'target': target,
+          'role': ?role?.wireValue,
+          'user_id': ?userId,
+        },
+      );
+      return response.data!['sent'] as int;
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
 }
 
 final adminRepositoryProvider = Provider<AdminRepository>((ref) => AdminRepository(ref));
