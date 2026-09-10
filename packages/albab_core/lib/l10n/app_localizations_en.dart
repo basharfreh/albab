@@ -19,6 +19,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonSave => 'Save';
 
   @override
+  String get commonAdd => 'Add';
+
+  @override
   String get commonCancel => 'Cancel';
 
   @override
@@ -672,6 +675,131 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashExportDone => 'File downloaded.';
+
+  @override
+  String get dashSettingsNeighborhoods => 'Neighborhoods';
+
+  @override
+  String get dashSettingsQuotas => 'Quotas';
+
+  @override
+  String get dashSettingsPages => 'Static content';
+
+  @override
+  String get dashColNameAr => 'Name (Arabic)';
+
+  @override
+  String get dashColNameEn => 'Name (English)';
+
+  @override
+  String get dashColSlug => 'Slug';
+
+  @override
+  String get dashColLat => 'Latitude';
+
+  @override
+  String get dashColLng => 'Longitude';
+
+  @override
+  String get dashColActive => 'Active';
+
+  @override
+  String get dashActive => 'Active';
+
+  @override
+  String get dashInactive => 'Inactive';
+
+  @override
+  String get dashAddNeighborhood => 'Add neighborhood';
+
+  @override
+  String get dashEditNeighborhood => 'Edit neighborhood';
+
+  @override
+  String get dashNeighborhoodSaved => 'Neighborhood saved.';
+
+  @override
+  String get dashNeighborhoodDeleted => 'Neighborhood deleted.';
+
+  @override
+  String get dashNeighborhoodNameArLabel => 'Name (Arabic)';
+
+  @override
+  String get dashNeighborhoodNameEnLabel => 'Name (English)';
+
+  @override
+  String get dashNeighborhoodSlugLabel => 'Slug';
+
+  @override
+  String get dashNeighborhoodLatLabel => 'Latitude';
+
+  @override
+  String get dashNeighborhoodLngLabel => 'Longitude';
+
+  @override
+  String get dashNeighborhoodActiveLabel => 'Active';
+
+  @override
+  String get dashEmptyNeighborhoodsTitle => 'No neighborhoods';
+
+  @override
+  String get dashEmptyNeighborhoodsMessage =>
+      'No neighborhoods have been added yet.';
+
+  @override
+  String get dashConfirmDeleteTitle => 'Confirm delete';
+
+  @override
+  String get dashConfirmDeleteNeighborhoodMessage =>
+      'Are you sure you want to delete this neighborhood?';
+
+  @override
+  String get dashQuotaSeeker => 'Seeker';
+
+  @override
+  String get dashQuotaOwner => 'Owner';
+
+  @override
+  String get dashQuotaAgency => 'Agency';
+
+  @override
+  String get dashQuotasHint => 'Maximum active listings per role.';
+
+  @override
+  String get dashQuotasSaved => 'Quotas saved.';
+
+  @override
+  String get dashAddPage => 'Add page';
+
+  @override
+  String get dashEditPage => 'Edit page';
+
+  @override
+  String get dashPageSaved => 'Page saved.';
+
+  @override
+  String get dashPageDeleted => 'Page deleted.';
+
+  @override
+  String get dashPageSlugLabel => 'Slug';
+
+  @override
+  String get dashPageTitleArLabel => 'Title (Arabic)';
+
+  @override
+  String get dashPageTitleEnLabel => 'Title (English)';
+
+  @override
+  String get dashPageBodyArLabel => 'Body (Arabic)';
+
+  @override
+  String get dashPageBodyEnLabel => 'Body (English)';
+
+  @override
+  String get dashEmptyPagesTitle => 'No content';
+
+  @override
+  String get dashEmptyPagesMessage => 'No pages have been added yet.';
 
   @override
   String get dashSidebarCollapse => 'Collapse menu';

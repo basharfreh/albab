@@ -62,6 +62,9 @@ Kept current by backend phases. Full interactive schema is served at `/api/docs/
 | POST | `/api/v1/admin/reports/{id}/close/` | P3 | Sets `status=closed`, `handled_by=request.user`. `IsAdminRole` |
 | GET / POST | `/api/v1/admin/promotions/` | P3 | Manages **`Promotion`** instances (a package applied to a listing), not `PromotionPackage` — see PROGRESS.md P3 decisions. POST `{listing, package}` creates one in `pending` status. `IsAdminRole` |
 | GET / POST | `/api/v1/admin/transactions/` | P3 | POST `{user, promotion, amount, method, currency?, reference?, status?}` (`status` defaults to `completed`) records a manual payment; a `completed` transaction immediately activates its `Promotion` (`starts_at`/`ends_at`/`status=active`) and sets `listing.is_featured` + `featured_until`. `IsAdminRole` |
+| GET / POST / PATCH / DELETE | `/api/v1/admin/neighborhoods/` (+ `{id}/`) | P11 | UC-59: full CRUD (unlike public `/neighborhoods/`, includes inactive rows and is writable). `AdminNeighborhoodSerializer` adds `is_active`/`sort_order` to the public shape. `IsAdminRole` |
+| GET / PATCH | `/api/v1/admin/settings/quotas/` | P11 | UC-59: `{seeker, owner, agency}` — the active-listing quota per role, previously a hardcoded constant (P2). A singleton row (`ListingQuotaSettings.get_solo()`, always `pk=1`); `services/quota.py` reads it live, so a PATCH takes effect on the next listing submission. `IsAdminRole` |
+| GET / POST / PATCH / DELETE | `/api/v1/admin/settings/pages/` (+ `{id}/`) | P11 | UC-59: CRUD for `StaticPage` (generic `slug` + bilingual title/body — about/terms/privacy/etc., not fixed by the brief). No public read endpoint yet — nothing consumes these outside the dashboard so far; add one when a mobile screen needs to render a page. `IsAdminRole` |
 
 `PromotionPackage` (the catalog of purchasable packages, e.g. "7 days / $10") has no dedicated API endpoint yet — managed via Django admin. See PROGRESS.md.
 

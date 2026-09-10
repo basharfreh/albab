@@ -19,6 +19,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get commonSave => 'حفظ';
 
   @override
+  String get commonAdd => 'إضافة';
+
+  @override
   String get commonCancel => 'إلغاء';
 
   @override
@@ -671,6 +674,130 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dashExportDone => 'تم تنزيل الملف.';
+
+  @override
+  String get dashSettingsNeighborhoods => 'الأحياء';
+
+  @override
+  String get dashSettingsQuotas => 'الحصص';
+
+  @override
+  String get dashSettingsPages => 'المحتوى الثابت';
+
+  @override
+  String get dashColNameAr => 'الاسم (عربي)';
+
+  @override
+  String get dashColNameEn => 'الاسم (إنجليزي)';
+
+  @override
+  String get dashColSlug => 'المعرف';
+
+  @override
+  String get dashColLat => 'خط العرض';
+
+  @override
+  String get dashColLng => 'خط الطول';
+
+  @override
+  String get dashColActive => 'مفعّل';
+
+  @override
+  String get dashActive => 'مفعّل';
+
+  @override
+  String get dashInactive => 'غير مفعّل';
+
+  @override
+  String get dashAddNeighborhood => 'إضافة حي';
+
+  @override
+  String get dashEditNeighborhood => 'تعديل حي';
+
+  @override
+  String get dashNeighborhoodSaved => 'تم حفظ الحي.';
+
+  @override
+  String get dashNeighborhoodDeleted => 'تم حذف الحي.';
+
+  @override
+  String get dashNeighborhoodNameArLabel => 'الاسم (عربي)';
+
+  @override
+  String get dashNeighborhoodNameEnLabel => 'الاسم (إنجليزي)';
+
+  @override
+  String get dashNeighborhoodSlugLabel => 'المعرف (slug)';
+
+  @override
+  String get dashNeighborhoodLatLabel => 'خط العرض (Latitude)';
+
+  @override
+  String get dashNeighborhoodLngLabel => 'خط الطول (Longitude)';
+
+  @override
+  String get dashNeighborhoodActiveLabel => 'مفعّل';
+
+  @override
+  String get dashEmptyNeighborhoodsTitle => 'لا توجد أحياء';
+
+  @override
+  String get dashEmptyNeighborhoodsMessage => 'لم يتم إضافة أي حي بعد.';
+
+  @override
+  String get dashConfirmDeleteTitle => 'تأكيد الحذف';
+
+  @override
+  String get dashConfirmDeleteNeighborhoodMessage =>
+      'هل أنت متأكد من حذف هذا الحي؟';
+
+  @override
+  String get dashQuotaSeeker => 'الباحث عن عقار';
+
+  @override
+  String get dashQuotaOwner => 'مالك عقار';
+
+  @override
+  String get dashQuotaAgency => 'مكتب عقاري';
+
+  @override
+  String get dashQuotasHint => 'الحد الأقصى لعدد العقارات النشطة لكل دور.';
+
+  @override
+  String get dashQuotasSaved => 'تم حفظ الحصص.';
+
+  @override
+  String get dashAddPage => 'إضافة صفحة';
+
+  @override
+  String get dashEditPage => 'تعديل صفحة';
+
+  @override
+  String get dashPageSaved => 'تم حفظ الصفحة.';
+
+  @override
+  String get dashPageDeleted => 'تم حذف الصفحة.';
+
+  @override
+  String get dashPageSlugLabel => 'المعرف (slug)';
+
+  @override
+  String get dashPageTitleArLabel => 'العنوان (عربي)';
+
+  @override
+  String get dashPageTitleEnLabel => 'العنوان (إنجليزي)';
+
+  @override
+  String get dashPageBodyArLabel => 'المحتوى (عربي)';
+
+  @override
+  String get dashPageBodyEnLabel => 'المحتوى (إنجليزي)';
+
+  @override
+  String get dashEmptyPagesTitle => 'لا يوجد محتوى';
+
+  @override
+  String get dashEmptyPagesMessage => 'لم تتم إضافة أي صفحة بعد.';
 
   @override
   String get dashSidebarCollapse => 'طي القائمة';

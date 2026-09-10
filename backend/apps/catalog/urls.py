@@ -5,9 +5,17 @@ from apps.catalog import views
 
 router = DefaultRouter()
 router.register("listings", views.ListingViewSet, basename="listing")
+router.register(
+    "admin/neighborhoods", views.AdminNeighborhoodViewSet, basename="admin-neighborhood"
+)
 
 urlpatterns = [
     path("neighborhoods/", views.NeighborhoodListView.as_view(), name="neighborhoods"),
+    path(
+        "admin/settings/quotas/",
+        views.AdminQuotaSettingsView.as_view(),
+        name="admin-quota-settings",
+    ),
     path("me/listings/", views.MyListingsView.as_view(), name="my-listings"),
     path("favorites/", views.FavoriteListCreateView.as_view(), name="favorites"),
     path(

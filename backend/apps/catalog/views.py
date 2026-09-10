@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db.models import BooleanField, Exists, OuterRef, Q, Value
+from django.db.models.deletion import ProtectedError
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -14,8 +15,16 @@ from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from apps.catalog.filters import ListingFilterSet
-from apps.catalog.models import Favorite, Listing, ListingImage, ListingStatus, Neighborhood
+from apps.catalog.models import (
+    Favorite,
+    Listing,
+    ListingImage,
+    ListingQuotaSettings,
+    ListingStatus,
+    Neighborhood,
+)
 from apps.catalog.serializers import (
+    AdminNeighborhoodSerializer,
     ListingCardSerializer,
     ListingDetailSerializer,
     ListingImageSerializer,
@@ -23,6 +32,7 @@ from apps.catalog.serializers import (
     ListingWriteSerializer,
     MyListingSerializer,
     NeighborhoodSerializer,
+    QuotaSettingsSerializer,
 )
 from apps.catalog.services.geo import nearest_neighborhood, search_places
 from apps.catalog.services.images import (
@@ -32,6 +42,7 @@ from apps.catalog.services.images import (
 )
 from apps.catalog.services.listing_status import transition_status
 from apps.catalog.services.quota import check_quota
+from apps.common.permissions import IsAdminRole
 
 EDITABLE_STATUSES = {ListingStatus.DRAFT, ListingStatus.REJECTED, ListingStatus.PUBLISHED}
 MAP_MARKER_LIMIT = 500
@@ -43,6 +54,38 @@ def _favorited_annotation(queryset, user):
             is_favorited=Exists(Favorite.objects.filter(user=user, listing=OuterRef("pk")))
         )
     return queryset.annotate(is_favorited=Value(False, output_field=BooleanField()))
+
+
+class AdminNeighborhoodViewSet(viewsets.ModelViewSet):
+    """UC-59: full CRUD, including inactive neighborhoods (unlike the public,
+    active-only `NeighborhoodListView`)."""
+
+    serializer_class = AdminNeighborhoodSerializer
+    permission_classes = [IsAdminRole]
+    queryset = Neighborhood.objects.all()
+
+    def destroy(self, request, *args, **kwargs):
+        # `Listing.neighborhood` is `on_delete=PROTECT` — deleting a neighborhood still in use
+        # would otherwise surface as an unhandled 500 (`ProtectedError` isn't a DRF exception).
+        # Deactivating (`is_active=False`) is the intended way to retire one; delete is only for
+        # a neighborhood that was never actually used.
+        try:
+            return super().destroy(request, *args, **kwargs)
+        except ProtectedError:
+            raise ValidationError(
+                "لا يمكن حذف هذا الحي لوجود عقارات مرتبطة به. قم بإلغاء تفعيله بدلاً من ذلك."
+            )
+
+
+class AdminQuotaSettingsView(generics.RetrieveUpdateAPIView):
+    """UC-59: `GET`/`PATCH /admin/settings/quotas/` — the one settings row `services/quota.py`
+    reads (see `ListingQuotaSettings.get_solo`)."""
+
+    serializer_class = QuotaSettingsSerializer
+    permission_classes = [IsAdminRole]
+
+    def get_object(self):
+        return ListingQuotaSettings.get_solo()
 
 
 @method_decorator(cache_page(60), name="dispatch")

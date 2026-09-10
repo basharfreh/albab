@@ -1,18 +1,13 @@
 from rest_framework.exceptions import ValidationError
 
-from apps.catalog.models import Listing, ListingStatus
+from apps.catalog.models import Listing, ListingQuotaSettings, ListingStatus
 
 ACTIVE_STATUSES = [ListingStatus.PENDING, ListingStatus.PUBLISHED, ListingStatus.PAUSED]
 
-QUOTAS = {
-    "seeker": 0,
-    "owner": 10,
-    "agency": 100,
-}
-
 
 def check_quota(user) -> None:
-    quota = QUOTAS.get(user.role, 0)
+    quota_settings = ListingQuotaSettings.get_solo()
+    quota = getattr(quota_settings, user.role, 0)
     active_count = Listing.objects.filter(owner=user, status__in=ACTIVE_STATUSES).count()
     if active_count >= quota:
         raise ValidationError(

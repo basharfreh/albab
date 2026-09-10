@@ -160,6 +160,122 @@ class AdminRepository {
       throw _api.mapError(e);
     }
   }
+
+  /// UC-59: unlike the public `/neighborhoods/` (active-only), this lists every row.
+  Future<List<AdminNeighborhood>> fetchAdminNeighborhoods() async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/neighborhoods/',
+        queryParameters: {'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results
+          .map((e) => AdminNeighborhood.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminNeighborhood> createNeighborhood(AdminNeighborhood neighborhood) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/neighborhoods/',
+        data: neighborhood.toJson(),
+      );
+      return AdminNeighborhood.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminNeighborhood> updateNeighborhood(AdminNeighborhood neighborhood) async {
+    try {
+      final response = await _api.dio.patch<Map<String, dynamic>>(
+        '/admin/neighborhoods/${neighborhood.id}/',
+        data: neighborhood.toJson(),
+      );
+      return AdminNeighborhood.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// The backend rejects this with a 400 (not a 500) when listings still reference the
+  /// neighborhood (`on_delete=PROTECT`) — deactivating is the intended way to retire one.
+  Future<void> deleteNeighborhood(int id) async {
+    try {
+      await _api.dio.delete<void>('/admin/neighborhoods/$id/');
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<QuotaSettings> fetchQuotaSettings() async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>('/admin/settings/quotas/');
+      return QuotaSettings.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<QuotaSettings> updateQuotaSettings(QuotaSettings quotas) async {
+    try {
+      final response = await _api.dio.patch<Map<String, dynamic>>(
+        '/admin/settings/quotas/',
+        data: {'seeker': quotas.seeker, 'owner': quotas.owner, 'agency': quotas.agency},
+      );
+      return QuotaSettings.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<List<AdminStaticPage>> fetchStaticPages() async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/settings/pages/',
+        queryParameters: {'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results.map((e) => AdminStaticPage.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminStaticPage> createStaticPage(AdminStaticPage page) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/settings/pages/',
+        data: page.toJson(),
+      );
+      return AdminStaticPage.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminStaticPage> updateStaticPage(AdminStaticPage page) async {
+    try {
+      final response = await _api.dio.patch<Map<String, dynamic>>(
+        '/admin/settings/pages/${page.id}/',
+        data: page.toJson(),
+      );
+      return AdminStaticPage.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<void> deleteStaticPage(int id) async {
+    try {
+      await _api.dio.delete<void>('/admin/settings/pages/$id/');
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
 }
 
 final adminRepositoryProvider = Provider<AdminRepository>((ref) => AdminRepository(ref));

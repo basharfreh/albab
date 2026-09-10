@@ -8,6 +8,7 @@ import 'features/auth/ui/splash_screen.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/listings/ui/listings_screen.dart';
 import 'features/reports/ui/reports_screen.dart';
+import 'features/settings/ui/settings_screen.dart';
 import 'features/shell/ui/coming_soon_screen.dart';
 import 'features/shell/ui/dashboard_shell.dart';
 import 'features/users/ui/users_screen.dart';
@@ -65,10 +66,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const _ComingSoonRoute(path: '/notifications'),
           ),
           GoRoute(path: '/reports', builder: (context, state) => const ReportsScreen()),
-          GoRoute(
-            path: '/settings',
-            builder: (context, state) => const _ComingSoonRoute(path: '/settings'),
-          ),
+          GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
         ],
       ),
     ],
@@ -90,7 +88,6 @@ class _ComingSoonRoute extends ConsumerWidget {
       '/promotions' => l10n.dashNavPromotions,
       '/transactions' => l10n.dashNavTransactions,
       '/notifications' => l10n.dashNavNotifications,
-      '/settings' => l10n.dashNavSettings,
       _ => path,
     };
     return ComingSoonScreen(title: title);

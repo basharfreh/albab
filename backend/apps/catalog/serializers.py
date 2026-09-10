@@ -1,13 +1,37 @@
 from rest_framework import serializers
 
 from apps.accounts.models import User
-from apps.catalog.models import Listing, ListingImage, Neighborhood
+from apps.catalog.models import Listing, ListingImage, ListingQuotaSettings, Neighborhood
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Neighborhood
         fields = ["id", "name_ar", "name_en", "slug", "center_lat", "center_lng"]
+
+
+class AdminNeighborhoodSerializer(serializers.ModelSerializer):
+    """UC-59: unlike the public `NeighborhoodSerializer`, exposes `is_active`/`sort_order`
+    (the admin manages both) and is writable."""
+
+    class Meta:
+        model = Neighborhood
+        fields = [
+            "id",
+            "name_ar",
+            "name_en",
+            "slug",
+            "center_lat",
+            "center_lng",
+            "is_active",
+            "sort_order",
+        ]
+
+
+class QuotaSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListingQuotaSettings
+        fields = ["seeker", "owner", "agency"]
 
 
 class ListingImageSerializer(serializers.ModelSerializer):

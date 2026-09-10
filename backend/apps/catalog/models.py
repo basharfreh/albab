@@ -43,6 +43,27 @@ class Neighborhood(models.Model):
         return self.name_ar
 
 
+class ListingQuotaSettings(models.Model):
+    """Singleton (always `pk=1`, see `get_solo`) — UC-59's admin-editable quotas, read by
+    `services/quota.py` instead of the hardcoded constants P2 originally shipped."""
+
+    seeker = models.PositiveIntegerField(default=0)
+    owner = models.PositiveIntegerField(default=10)
+    agency = models.PositiveIntegerField(default=100)
+
+    class Meta:
+        verbose_name = "Listing quota settings"
+        verbose_name_plural = "Listing quota settings"
+
+    def __str__(self):
+        return "Listing quotas"
+
+    @classmethod
+    def get_solo(cls) -> "ListingQuotaSettings":
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+
 class Listing(TimeStampedModel):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listings"

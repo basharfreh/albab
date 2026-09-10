@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'حفظ'**
   String get commonSave;
 
+  /// No description provided for @commonAdd.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة'**
+  String get commonAdd;
+
   /// No description provided for @commonCancel.
   ///
   /// In ar, this message translates to:
@@ -1375,6 +1381,252 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تم تنزيل الملف.'**
   String get dashExportDone;
+
+  /// No description provided for @dashSettingsNeighborhoods.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأحياء'**
+  String get dashSettingsNeighborhoods;
+
+  /// No description provided for @dashSettingsQuotas.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحصص'**
+  String get dashSettingsQuotas;
+
+  /// No description provided for @dashSettingsPages.
+  ///
+  /// In ar, this message translates to:
+  /// **'المحتوى الثابت'**
+  String get dashSettingsPages;
+
+  /// No description provided for @dashColNameAr.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (عربي)'**
+  String get dashColNameAr;
+
+  /// No description provided for @dashColNameEn.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (إنجليزي)'**
+  String get dashColNameEn;
+
+  /// No description provided for @dashColSlug.
+  ///
+  /// In ar, this message translates to:
+  /// **'المعرف'**
+  String get dashColSlug;
+
+  /// No description provided for @dashColLat.
+  ///
+  /// In ar, this message translates to:
+  /// **'خط العرض'**
+  String get dashColLat;
+
+  /// No description provided for @dashColLng.
+  ///
+  /// In ar, this message translates to:
+  /// **'خط الطول'**
+  String get dashColLng;
+
+  /// No description provided for @dashColActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفعّل'**
+  String get dashColActive;
+
+  /// No description provided for @dashActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفعّل'**
+  String get dashActive;
+
+  /// No description provided for @dashInactive.
+  ///
+  /// In ar, this message translates to:
+  /// **'غير مفعّل'**
+  String get dashInactive;
+
+  /// No description provided for @dashAddNeighborhood.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة حي'**
+  String get dashAddNeighborhood;
+
+  /// No description provided for @dashEditNeighborhood.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل حي'**
+  String get dashEditNeighborhood;
+
+  /// No description provided for @dashNeighborhoodSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ الحي.'**
+  String get dashNeighborhoodSaved;
+
+  /// No description provided for @dashNeighborhoodDeleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حذف الحي.'**
+  String get dashNeighborhoodDeleted;
+
+  /// No description provided for @dashNeighborhoodNameArLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (عربي)'**
+  String get dashNeighborhoodNameArLabel;
+
+  /// No description provided for @dashNeighborhoodNameEnLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (إنجليزي)'**
+  String get dashNeighborhoodNameEnLabel;
+
+  /// No description provided for @dashNeighborhoodSlugLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المعرف (slug)'**
+  String get dashNeighborhoodSlugLabel;
+
+  /// No description provided for @dashNeighborhoodLatLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'خط العرض (Latitude)'**
+  String get dashNeighborhoodLatLabel;
+
+  /// No description provided for @dashNeighborhoodLngLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'خط الطول (Longitude)'**
+  String get dashNeighborhoodLngLabel;
+
+  /// No description provided for @dashNeighborhoodActiveLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفعّل'**
+  String get dashNeighborhoodActiveLabel;
+
+  /// No description provided for @dashEmptyNeighborhoodsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد أحياء'**
+  String get dashEmptyNeighborhoodsTitle;
+
+  /// No description provided for @dashEmptyNeighborhoodsMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم يتم إضافة أي حي بعد.'**
+  String get dashEmptyNeighborhoodsMessage;
+
+  /// No description provided for @dashConfirmDeleteTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكيد الحذف'**
+  String get dashConfirmDeleteTitle;
+
+  /// No description provided for @dashConfirmDeleteNeighborhoodMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'هل أنت متأكد من حذف هذا الحي؟'**
+  String get dashConfirmDeleteNeighborhoodMessage;
+
+  /// No description provided for @dashQuotaSeeker.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباحث عن عقار'**
+  String get dashQuotaSeeker;
+
+  /// No description provided for @dashQuotaOwner.
+  ///
+  /// In ar, this message translates to:
+  /// **'مالك عقار'**
+  String get dashQuotaOwner;
+
+  /// No description provided for @dashQuotaAgency.
+  ///
+  /// In ar, this message translates to:
+  /// **'مكتب عقاري'**
+  String get dashQuotaAgency;
+
+  /// No description provided for @dashQuotasHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأقصى لعدد العقارات النشطة لكل دور.'**
+  String get dashQuotasHint;
+
+  /// No description provided for @dashQuotasSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ الحصص.'**
+  String get dashQuotasSaved;
+
+  /// No description provided for @dashAddPage.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة صفحة'**
+  String get dashAddPage;
+
+  /// No description provided for @dashEditPage.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل صفحة'**
+  String get dashEditPage;
+
+  /// No description provided for @dashPageSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ الصفحة.'**
+  String get dashPageSaved;
+
+  /// No description provided for @dashPageDeleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حذف الصفحة.'**
+  String get dashPageDeleted;
+
+  /// No description provided for @dashPageSlugLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المعرف (slug)'**
+  String get dashPageSlugLabel;
+
+  /// No description provided for @dashPageTitleArLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'العنوان (عربي)'**
+  String get dashPageTitleArLabel;
+
+  /// No description provided for @dashPageTitleEnLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'العنوان (إنجليزي)'**
+  String get dashPageTitleEnLabel;
+
+  /// No description provided for @dashPageBodyArLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المحتوى (عربي)'**
+  String get dashPageBodyArLabel;
+
+  /// No description provided for @dashPageBodyEnLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المحتوى (إنجليزي)'**
+  String get dashPageBodyEnLabel;
+
+  /// No description provided for @dashEmptyPagesTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد محتوى'**
+  String get dashEmptyPagesTitle;
+
+  /// No description provided for @dashEmptyPagesMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تتم إضافة أي صفحة بعد.'**
+  String get dashEmptyPagesMessage;
 
   /// No description provided for @dashSidebarCollapse.
   ///
