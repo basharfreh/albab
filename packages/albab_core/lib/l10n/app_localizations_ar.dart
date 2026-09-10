@@ -800,6 +800,144 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashEmptyPagesMessage => 'لم تتم إضافة أي صفحة بعد.';
 
   @override
+  String get dashPromotionsPackagesTab => 'الباقات';
+
+  @override
+  String get dashPromotionsActiveTab => 'الإعلانات';
+
+  @override
+  String get dashAddPackage => 'إضافة باقة';
+
+  @override
+  String get dashEditPackage => 'تعديل باقة';
+
+  @override
+  String get dashPackageSaved => 'تم حفظ الباقة.';
+
+  @override
+  String get dashPackageDeleted => 'تم حذف الباقة.';
+
+  @override
+  String get dashPackageNameArLabel => 'الاسم (عربي)';
+
+  @override
+  String get dashPackageNameEnLabel => 'الاسم (إنجليزي)';
+
+  @override
+  String get dashPackageDaysLabel => 'عدد الأيام';
+
+  @override
+  String get dashPackagePriceLabel => 'السعر (USD)';
+
+  @override
+  String get dashPackageActiveLabel => 'مفعّلة';
+
+  @override
+  String get dashColDays => 'عدد الأيام';
+
+  @override
+  String get dashEmptyPackagesTitle => 'لا توجد باقات';
+
+  @override
+  String get dashEmptyPackagesMessage => 'لم تتم إضافة أي باقة بعد.';
+
+  @override
+  String get dashConfirmDeletePackageMessage =>
+      'هل أنت متأكد من حذف هذه الباقة؟';
+
+  @override
+  String get dashAddPromotion => 'إنشاء إعلان';
+
+  @override
+  String get dashPromotionListingIdLabel => 'رقم العقار';
+
+  @override
+  String get dashPromotionPackageLabel => 'الباقة';
+
+  @override
+  String get dashPromotionCreated => 'تم إنشاء الإعلان.';
+
+  @override
+  String get dashColOwner => 'المالك';
+
+  @override
+  String get dashColPackage => 'الباقة';
+
+  @override
+  String get dashColDaysRemaining => 'الأيام المتبقية';
+
+  @override
+  String get dashStatusPending => 'قيد الانتظار';
+
+  @override
+  String get dashPromotionStatusActive => 'نشط';
+
+  @override
+  String get dashPromotionStatusExpired => 'منتهي';
+
+  @override
+  String get dashEmptyPromotionsTitle => 'لا توجد إعلانات';
+
+  @override
+  String get dashEmptyPromotionsMessage =>
+      'لا توجد إعلانات مطابقة لهذا الفلتر.';
+
+  @override
+  String get dashRecordPayment => 'تسجيل دفعة';
+
+  @override
+  String get dashTransactionPromotionLabel => 'الإعلان المعلّق';
+
+  @override
+  String get dashTransactionAmountLabel => 'المبلغ';
+
+  @override
+  String get dashTransactionMethodLabel => 'طريقة الدفع';
+
+  @override
+  String get dashTransactionMethodCash => 'نقداً';
+
+  @override
+  String get dashTransactionMethodManual => 'يدوي';
+
+  @override
+  String get dashTransactionCurrencyLabel => 'العملة';
+
+  @override
+  String get dashTransactionReferenceLabel => 'رقم مرجعي (اختياري)';
+
+  @override
+  String get dashTransactionRecorded => 'تم تسجيل الدفعة.';
+
+  @override
+  String get dashTransactionStatusCompleted => 'مكتمل';
+
+  @override
+  String get dashColMethod => 'طريقة الدفع';
+
+  @override
+  String get dashColAmount => 'المبلغ';
+
+  @override
+  String get dashColReference => 'المرجع';
+
+  @override
+  String get dashFilterDateFrom => 'من تاريخ';
+
+  @override
+  String get dashFilterDateTo => 'إلى تاريخ';
+
+  @override
+  String get dashEmptyTransactionsTitle => 'لا توجد معاملات';
+
+  @override
+  String get dashEmptyTransactionsMessage =>
+      'لا توجد معاملات مطابقة لهذا الفلتر.';
+
+  @override
+  String get dashNoPendingPromotions => 'لا توجد إعلانات معلّقة لتحصيلها.';
+
+  @override
   String get dashSidebarCollapse => 'طي القائمة';
 
   @override

@@ -1628,6 +1628,276 @@ abstract class AppLocalizations {
   /// **'لم تتم إضافة أي صفحة بعد.'**
   String get dashEmptyPagesMessage;
 
+  /// No description provided for @dashPromotionsPackagesTab.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقات'**
+  String get dashPromotionsPackagesTab;
+
+  /// No description provided for @dashPromotionsActiveTab.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإعلانات'**
+  String get dashPromotionsActiveTab;
+
+  /// No description provided for @dashAddPackage.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة باقة'**
+  String get dashAddPackage;
+
+  /// No description provided for @dashEditPackage.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل باقة'**
+  String get dashEditPackage;
+
+  /// No description provided for @dashPackageSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ الباقة.'**
+  String get dashPackageSaved;
+
+  /// No description provided for @dashPackageDeleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حذف الباقة.'**
+  String get dashPackageDeleted;
+
+  /// No description provided for @dashPackageNameArLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (عربي)'**
+  String get dashPackageNameArLabel;
+
+  /// No description provided for @dashPackageNameEnLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم (إنجليزي)'**
+  String get dashPackageNameEnLabel;
+
+  /// No description provided for @dashPackageDaysLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'عدد الأيام'**
+  String get dashPackageDaysLabel;
+
+  /// No description provided for @dashPackagePriceLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر (USD)'**
+  String get dashPackagePriceLabel;
+
+  /// No description provided for @dashPackageActiveLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفعّلة'**
+  String get dashPackageActiveLabel;
+
+  /// No description provided for @dashColDays.
+  ///
+  /// In ar, this message translates to:
+  /// **'عدد الأيام'**
+  String get dashColDays;
+
+  /// No description provided for @dashEmptyPackagesTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد باقات'**
+  String get dashEmptyPackagesTitle;
+
+  /// No description provided for @dashEmptyPackagesMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تتم إضافة أي باقة بعد.'**
+  String get dashEmptyPackagesMessage;
+
+  /// No description provided for @dashConfirmDeletePackageMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'هل أنت متأكد من حذف هذه الباقة؟'**
+  String get dashConfirmDeletePackageMessage;
+
+  /// No description provided for @dashAddPromotion.
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء إعلان'**
+  String get dashAddPromotion;
+
+  /// No description provided for @dashPromotionListingIdLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم العقار'**
+  String get dashPromotionListingIdLabel;
+
+  /// No description provided for @dashPromotionPackageLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقة'**
+  String get dashPromotionPackageLabel;
+
+  /// No description provided for @dashPromotionCreated.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إنشاء الإعلان.'**
+  String get dashPromotionCreated;
+
+  /// No description provided for @dashColOwner.
+  ///
+  /// In ar, this message translates to:
+  /// **'المالك'**
+  String get dashColOwner;
+
+  /// No description provided for @dashColPackage.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقة'**
+  String get dashColPackage;
+
+  /// No description provided for @dashColDaysRemaining.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأيام المتبقية'**
+  String get dashColDaysRemaining;
+
+  /// No description provided for @dashStatusPending.
+  ///
+  /// In ar, this message translates to:
+  /// **'قيد الانتظار'**
+  String get dashStatusPending;
+
+  /// No description provided for @dashPromotionStatusActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'نشط'**
+  String get dashPromotionStatusActive;
+
+  /// No description provided for @dashPromotionStatusExpired.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتهي'**
+  String get dashPromotionStatusExpired;
+
+  /// No description provided for @dashEmptyPromotionsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد إعلانات'**
+  String get dashEmptyPromotionsTitle;
+
+  /// No description provided for @dashEmptyPromotionsMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد إعلانات مطابقة لهذا الفلتر.'**
+  String get dashEmptyPromotionsMessage;
+
+  /// No description provided for @dashRecordPayment.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسجيل دفعة'**
+  String get dashRecordPayment;
+
+  /// No description provided for @dashTransactionPromotionLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإعلان المعلّق'**
+  String get dashTransactionPromotionLabel;
+
+  /// No description provided for @dashTransactionAmountLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المبلغ'**
+  String get dashTransactionAmountLabel;
+
+  /// No description provided for @dashTransactionMethodLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'طريقة الدفع'**
+  String get dashTransactionMethodLabel;
+
+  /// No description provided for @dashTransactionMethodCash.
+  ///
+  /// In ar, this message translates to:
+  /// **'نقداً'**
+  String get dashTransactionMethodCash;
+
+  /// No description provided for @dashTransactionMethodManual.
+  ///
+  /// In ar, this message translates to:
+  /// **'يدوي'**
+  String get dashTransactionMethodManual;
+
+  /// No description provided for @dashTransactionCurrencyLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'العملة'**
+  String get dashTransactionCurrencyLabel;
+
+  /// No description provided for @dashTransactionReferenceLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم مرجعي (اختياري)'**
+  String get dashTransactionReferenceLabel;
+
+  /// No description provided for @dashTransactionRecorded.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تسجيل الدفعة.'**
+  String get dashTransactionRecorded;
+
+  /// No description provided for @dashTransactionStatusCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'مكتمل'**
+  String get dashTransactionStatusCompleted;
+
+  /// No description provided for @dashColMethod.
+  ///
+  /// In ar, this message translates to:
+  /// **'طريقة الدفع'**
+  String get dashColMethod;
+
+  /// No description provided for @dashColAmount.
+  ///
+  /// In ar, this message translates to:
+  /// **'المبلغ'**
+  String get dashColAmount;
+
+  /// No description provided for @dashColReference.
+  ///
+  /// In ar, this message translates to:
+  /// **'المرجع'**
+  String get dashColReference;
+
+  /// No description provided for @dashFilterDateFrom.
+  ///
+  /// In ar, this message translates to:
+  /// **'من تاريخ'**
+  String get dashFilterDateFrom;
+
+  /// No description provided for @dashFilterDateTo.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلى تاريخ'**
+  String get dashFilterDateTo;
+
+  /// No description provided for @dashEmptyTransactionsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد معاملات'**
+  String get dashEmptyTransactionsTitle;
+
+  /// No description provided for @dashEmptyTransactionsMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد معاملات مطابقة لهذا الفلتر.'**
+  String get dashEmptyTransactionsMessage;
+
+  /// No description provided for @dashNoPendingPromotions.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد إعلانات معلّقة لتحصيلها.'**
+  String get dashNoPendingPromotions;
+
   /// No description provided for @dashSidebarCollapse.
   ///
   /// In ar, this message translates to:

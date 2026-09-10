@@ -802,6 +802,143 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashEmptyPagesMessage => 'No pages have been added yet.';
 
   @override
+  String get dashPromotionsPackagesTab => 'Packages';
+
+  @override
+  String get dashPromotionsActiveTab => 'Promotions';
+
+  @override
+  String get dashAddPackage => 'Add package';
+
+  @override
+  String get dashEditPackage => 'Edit package';
+
+  @override
+  String get dashPackageSaved => 'Package saved.';
+
+  @override
+  String get dashPackageDeleted => 'Package deleted.';
+
+  @override
+  String get dashPackageNameArLabel => 'Name (Arabic)';
+
+  @override
+  String get dashPackageNameEnLabel => 'Name (English)';
+
+  @override
+  String get dashPackageDaysLabel => 'Days';
+
+  @override
+  String get dashPackagePriceLabel => 'Price (USD)';
+
+  @override
+  String get dashPackageActiveLabel => 'Active';
+
+  @override
+  String get dashColDays => 'Days';
+
+  @override
+  String get dashEmptyPackagesTitle => 'No packages';
+
+  @override
+  String get dashEmptyPackagesMessage => 'No packages have been added yet.';
+
+  @override
+  String get dashConfirmDeletePackageMessage =>
+      'Are you sure you want to delete this package?';
+
+  @override
+  String get dashAddPromotion => 'Create promotion';
+
+  @override
+  String get dashPromotionListingIdLabel => 'Listing ID';
+
+  @override
+  String get dashPromotionPackageLabel => 'Package';
+
+  @override
+  String get dashPromotionCreated => 'Promotion created.';
+
+  @override
+  String get dashColOwner => 'Owner';
+
+  @override
+  String get dashColPackage => 'Package';
+
+  @override
+  String get dashColDaysRemaining => 'Days remaining';
+
+  @override
+  String get dashStatusPending => 'Pending';
+
+  @override
+  String get dashPromotionStatusActive => 'Active';
+
+  @override
+  String get dashPromotionStatusExpired => 'Expired';
+
+  @override
+  String get dashEmptyPromotionsTitle => 'No promotions';
+
+  @override
+  String get dashEmptyPromotionsMessage => 'No promotions match this filter.';
+
+  @override
+  String get dashRecordPayment => 'Record payment';
+
+  @override
+  String get dashTransactionPromotionLabel => 'Pending promotion';
+
+  @override
+  String get dashTransactionAmountLabel => 'Amount';
+
+  @override
+  String get dashTransactionMethodLabel => 'Payment method';
+
+  @override
+  String get dashTransactionMethodCash => 'Cash';
+
+  @override
+  String get dashTransactionMethodManual => 'Manual';
+
+  @override
+  String get dashTransactionCurrencyLabel => 'Currency';
+
+  @override
+  String get dashTransactionReferenceLabel => 'Reference (optional)';
+
+  @override
+  String get dashTransactionRecorded => 'Payment recorded.';
+
+  @override
+  String get dashTransactionStatusCompleted => 'Completed';
+
+  @override
+  String get dashColMethod => 'Method';
+
+  @override
+  String get dashColAmount => 'Amount';
+
+  @override
+  String get dashColReference => 'Reference';
+
+  @override
+  String get dashFilterDateFrom => 'From date';
+
+  @override
+  String get dashFilterDateTo => 'To date';
+
+  @override
+  String get dashEmptyTransactionsTitle => 'No transactions';
+
+  @override
+  String get dashEmptyTransactionsMessage =>
+      'No transactions match this filter.';
+
+  @override
+  String get dashNoPendingPromotions => 'No pending promotions to bill.';
+
+  @override
   String get dashSidebarCollapse => 'Collapse menu';
 
   @override

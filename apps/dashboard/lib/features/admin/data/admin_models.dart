@@ -200,3 +200,123 @@ class AdminStaticPage {
     'body_en': bodyEn,
   };
 }
+
+/// One row of `/admin/promotion-packages/` (UC-56) — e.g. "7 days / $10".
+class AdminPromotionPackage {
+  const AdminPromotionPackage({
+    required this.id,
+    required this.nameAr,
+    required this.nameEn,
+    required this.days,
+    required this.price,
+    required this.isActive,
+  });
+
+  final int id;
+  final String nameAr;
+  final String nameEn;
+  final int days;
+  final String price;
+  final bool isActive;
+
+  factory AdminPromotionPackage.fromJson(Map<String, dynamic> json) => AdminPromotionPackage(
+    id: json['id'] as int,
+    nameAr: json['name_ar'] as String,
+    nameEn: json['name_en'] as String? ?? '',
+    days: json['days'] as int,
+    price: '${json['price']}',
+    isActive: json['is_active'] as bool,
+  );
+
+  Map<String, dynamic> toJson() => {
+    'name_ar': nameAr,
+    'name_en': nameEn,
+    'days': days,
+    'price': price,
+    'is_active': isActive,
+  };
+}
+
+/// One row of `/admin/promotions/` (UC-56) — a package applied to a listing.
+/// `listingOwnerId`/`listingOwnerName` (P11) let المعاملات' record-payment dialog bill the
+/// right user without a second lookup.
+class AdminPromotion {
+  const AdminPromotion({
+    required this.id,
+    required this.listingId,
+    required this.listingTitle,
+    required this.listingOwnerId,
+    required this.listingOwnerName,
+    required this.package,
+    required this.startsAt,
+    required this.endsAt,
+    required this.status,
+  });
+
+  final int id;
+  final int listingId;
+  final String listingTitle;
+  final int listingOwnerId;
+  final String listingOwnerName;
+  final AdminPromotionPackage package;
+  final DateTime? startsAt;
+  final DateTime? endsAt;
+  final String status;
+
+  /// `null` when not active/no end date yet; never negative (already-expired reads as 0).
+  int? get daysRemaining {
+    final end = endsAt;
+    if (end == null) return null;
+    final remaining = end.difference(DateTime.now()).inDays;
+    return remaining < 0 ? 0 : remaining;
+  }
+
+  factory AdminPromotion.fromJson(Map<String, dynamic> json) => AdminPromotion(
+    id: json['id'] as int,
+    listingId: json['listing'] as int,
+    listingTitle: json['listing_title'] as String,
+    listingOwnerId: json['listing_owner'] as int,
+    listingOwnerName: json['listing_owner_name'] as String,
+    package: AdminPromotionPackage.fromJson(json['package'] as Map<String, dynamic>),
+    startsAt: json['starts_at'] == null ? null : DateTime.parse(json['starts_at'] as String),
+    endsAt: json['ends_at'] == null ? null : DateTime.parse(json['ends_at'] as String),
+    status: json['status'] as String,
+  );
+}
+
+/// One row of `/admin/transactions/` (UC-57) — a manually recorded payment.
+class AdminTransaction {
+  const AdminTransaction({
+    required this.id,
+    required this.userName,
+    required this.listingTitle,
+    required this.amount,
+    required this.currency,
+    required this.method,
+    required this.reference,
+    required this.status,
+    required this.createdAt,
+  });
+
+  final int id;
+  final String userName;
+  final String listingTitle;
+  final String amount;
+  final String currency;
+  final String method;
+  final String reference;
+  final String status;
+  final DateTime createdAt;
+
+  factory AdminTransaction.fromJson(Map<String, dynamic> json) => AdminTransaction(
+    id: json['id'] as int,
+    userName: json['user_name'] as String,
+    listingTitle: json['listing_title'] as String,
+    amount: '${json['amount']}',
+    currency: json['currency'] as String,
+    method: json['method'] as String,
+    reference: json['reference'] as String? ?? '',
+    status: json['status'] as String,
+    createdAt: DateTime.parse(json['created_at'] as String),
+  );
+}

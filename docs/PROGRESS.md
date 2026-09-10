@@ -835,3 +835,41 @@ Same session, continued after committing the التقارير slice above (`960a
 - If building الإعدادات's map picker for real (closing the lat/lng-fields simplification above), check whether `apps/mobile`'s listing wizard already has a reusable map package/widget worth sharing via `albab_core` rather than picking a second one for the dashboard.
 - **Always run `manage.py migrate` against the live dev DB after `makemigrations`, separately from trusting `pytest`** — see the gotcha above, it will recur for any future session that adds a model and only checks the test suite.
 - Topbar search/bell are still decorative. `ListingsScreen` still has no detail drawer/bulk actions/server-side pagination.
+
+---
+
+## 2026-09-10 — P11 — Dashboard: الإعلانات + المعاملات (UC-56, UC-57)
+
+Same session, continued per the user's instruction to keep going through the plan in `docs/`. This closes the `PromotionPackage` gap every P11 entry since P3 has flagged and repeated — `POST /admin/promotions/` needs a `package` id, and until this session there was no endpoint to list `PromotionPackage` rows for a picker.
+
+**Backend — all additive, no new models (`Promotion`/`PromotionPackage`/`Transaction` already existed since P3)**
+- `AdminPromotionPackageViewSet` (full CRUD) at `/admin/promotion-packages/` — same `on_delete=PROTECT` → clean-400-instead-of-500 pattern as `AdminNeighborhoodViewSet` (`Promotion.package` is also `PROTECT`), since a package already used by a promotion can't be deleted outright. Verified live: deleting "أسبوع" after it had a real promotion attached → the friendly 400, package untouched.
+- `AdminPromotionListCreateView` gained `filterset_fields = ["status"]` — how المعاملات' record-payment dialog finds `pending` promotions to bill, and how الإعلانات could filter later if needed.
+- `AdminTransactionListCreateView` gained `filterset_fields = {"status": [...], "created_at": ["gte", "lte"]}` for the brief's "filters by date and status" — a plain dict on DRF's `filterset_fields` (no custom `FilterSet` class needed, `DjangoFilterBackend` is already the project's global default per `REST_FRAMEWORK["DEFAULT_FILTER_BACKENDS"]`).
+- `PromotionSerializer` gained read-only `listing_owner`/`listing_owner_name`; `TransactionSerializer` gained read-only `user_name`/`listing_title` — both purely for dashboard tables/dialogs to show names instead of raw ids, without a second lookup round-trip. Neither serializer's writable shape changed.
+- 11 new tests in `apps/billing/tests/test_billing.py` (package CRUD + delete-protection, promotion status filter, transaction status/date filters, the two new display-field additions). **96/96 backend tests pass.** `docs/API.md` updated; the old "`PromotionPackage` has no dedicated API endpoint yet" note is gone.
+- **No migration needed this time** — confirmed with `manage.py makemigrations --check --dry-run` before going live, learning from last entry's missing-migration gotcha.
+
+**Flutter — `apps/dashboard`**
+- `lib/features/admin/data/admin_models.dart` — `AdminPromotionPackage` (writable, `toJson`), `AdminPromotion` (read-only, includes a computed `daysRemaining` getter from `endsAt`), `AdminTransaction` (read-only).
+- `lib/features/admin/data/admin_repository.dart` — CRUD for packages, `fetchPromotions`/`createPromotion`, `fetchTransactions`/`createTransaction`.
+- `lib/features/promotions/ui/promotions_screen.dart` (new, routes `/promotions`) — two `ChoiceChip` sections: الباقات (packages CRUD, same table+dialog+delete-confirm shape as الإعدادات's sections) and الإعلانات (a read-only table of promotions — listing, owner, package, days remaining, status — plus a "إنشاء إعلان" dialog). **Simplification flagged in the file's doc comment**: creating a promotion asks for a listing id as a plain number field, not a search/picker — no reusable listing-search widget exists yet anywhere in this app.
+- `lib/features/transactions/ui/transactions_screen.dart` (new, routes `/transactions`) — status + date-range filters (`showDatePicker`, no new dependency), a transactions table, and the "تسجيل دفعة" (record payment) dialog: picks a `pending` promotion from a dropdown, **auto-fills the amount from the package's price** (editable, not locked) and derives `user` from `listing_owner` automatically so the admin never types a user id.
+- Avoided depending on `intl` directly (only `albab_core` declares it) for the date-filter chips' display text — a small hand-rolled `y-MM-dd` formatter instead of `DateFormat`, since adding an undeclared-but-transitively-available import would trip `depend_on_referenced_packages` (part of `flutter_lints`).
+- `lib/router.dart` — `/promotions` and `/transactions` now route to real screens; `_ComingSoonRoute`'s switch is down to just `/notifications`.
+- ~55 new l10n keys across `app_ar.arb`/`app_en.arb`, regenerated via `flutter gen-l10n`.
+
+**Verified**
+- **Static**: `flutter analyze` clean in all three Dart packages (first try — no `use_build_context_synchronously` this time, having learned the `mounted`-check pattern from the last entry), `flutter test` 2/2. Backend: `black`/`ruff`/`manage.py check` clean, 96/96 pytest.
+- **Live, against the real WSL backend + dashboard**: seeded 3 real `PromotionPackage` rows via Django shell (أسبوع/أسبوعان/شهر — none existed before, this app only ever had 60 listings/6 users/4 neighborhoods seeded). Confirmed the full real pipeline end-to-end through the UI, not just each screen in isolation: created a package → created a promotion for listing #1 against it (status "قيد الانتظار", package/listing/owner all resolved correctly) → opened المعاملات' record-payment dialog, picked that same pending promotion from the dropdown (amount auto-filled to `10.00` from the package price), saved → transaction appeared with resolved owner/listing names and "مكتمل" → switched back to الإعلانات and the same promotion now showed "نشط" with **6 days remaining** (real, computed from the real `ends_at` the backend's `activate_promotion` service set). Also confirmed the package delete-protection 400 fires correctly once a package is actually in use.
+- This session's live-test artifacts (the 3 packages, the one promotion, the one transaction) were **left in place as demo data**, not cleaned up — same "harmless, realistic" precedent every P11 entry since P10 has followed, and this one in particular is a genuine end-to-end proof of a real feature working, not incidental clutter.
+
+**Decisions / deviations**
+- Listing id as a plain number field for promotion creation — see above.
+- Amount auto-fills from the package price but stays editable — a manual payment might legitimately differ from the list price (a discount, a partial payment), so locking it would be wrong.
+- `user` for a transaction is always derived from the promotion's listing owner, never a separate picker — matches the real-world flow (the owner is who pays to promote their own listing) and avoids needing a second user-search widget.
+
+**Next agent should**
+- Two `ComingSoonScreen`-equivalent gaps remain in brief scope: الإشعارات (UC-3 broadcast composer) has no backend endpoint at all yet — needs a new one (send to all/by role/one user), not just a dashboard screen. الإعدادات's neighborhood map-picker simplification (lat/lng text fields instead of a small map) is still open, flagged two entries ago.
+- `ListingsScreen` still has no detail drawer/bulk actions/server-side pagination; topbar search/bell are still decorative. At this point every P11 sidebar item has *something* behind it except الإشعارات — that's the one genuinely missing screen left.
+- If a listing-search/picker widget ever gets built for one screen (e.g. a future ListingsScreen detail drawer), reuse it here too for promotion creation instead of the plain listing-id field.

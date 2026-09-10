@@ -7,10 +7,12 @@ import 'features/auth/ui/login_screen.dart';
 import 'features/auth/ui/splash_screen.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/listings/ui/listings_screen.dart';
+import 'features/promotions/ui/promotions_screen.dart';
 import 'features/reports/ui/reports_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
 import 'features/shell/ui/coming_soon_screen.dart';
 import 'features/shell/ui/dashboard_shell.dart';
+import 'features/transactions/ui/transactions_screen.dart';
 import 'features/users/ui/users_screen.dart';
 
 /// Bridges [authStateProvider] to a plain [Listenable] for go_router's `refreshListenable` —
@@ -53,14 +55,8 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
           GoRoute(path: '/listings', builder: (context, state) => const ListingsScreen()),
           GoRoute(path: '/users', builder: (context, state) => const UsersScreen()),
-          GoRoute(
-            path: '/promotions',
-            builder: (context, state) => const _ComingSoonRoute(path: '/promotions'),
-          ),
-          GoRoute(
-            path: '/transactions',
-            builder: (context, state) => const _ComingSoonRoute(path: '/transactions'),
-          ),
+          GoRoute(path: '/promotions', builder: (context, state) => const PromotionsScreen()),
+          GoRoute(path: '/transactions', builder: (context, state) => const TransactionsScreen()),
           GoRoute(
             path: '/notifications',
             builder: (context, state) => const _ComingSoonRoute(path: '/notifications'),
@@ -85,8 +81,6 @@ class _ComingSoonRoute extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final title = switch (path) {
-      '/promotions' => l10n.dashNavPromotions,
-      '/transactions' => l10n.dashNavTransactions,
       '/notifications' => l10n.dashNavNotifications,
       _ => path,
     };

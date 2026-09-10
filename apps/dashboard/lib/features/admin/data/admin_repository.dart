@@ -276,6 +276,131 @@ class AdminRepository {
       throw _api.mapError(e);
     }
   }
+
+  Future<List<AdminPromotionPackage>> fetchPromotionPackages() async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/promotion-packages/',
+        queryParameters: {'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results
+          .map((e) => AdminPromotionPackage.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminPromotionPackage> createPromotionPackage(AdminPromotionPackage package) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/promotion-packages/',
+        data: package.toJson(),
+      );
+      return AdminPromotionPackage.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminPromotionPackage> updatePromotionPackage(AdminPromotionPackage package) async {
+    try {
+      final response = await _api.dio.patch<Map<String, dynamic>>(
+        '/admin/promotion-packages/${package.id}/',
+        data: package.toJson(),
+      );
+      return AdminPromotionPackage.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// Rejected with a clean 400 (not a 500) when a `Promotion` still references the package.
+  Future<void> deletePromotionPackage(int id) async {
+    try {
+      await _api.dio.delete<void>('/admin/promotion-packages/$id/');
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// `?status=` (`pending`/`active`/`expired`) — المعاملات' record-payment dialog uses
+  /// `status: 'pending'` to find promotions to bill.
+  Future<List<AdminPromotion>> fetchPromotions({String? status}) async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/promotions/',
+        queryParameters: {'status': ?status, 'page_size': 50},
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results.map((e) => AdminPromotion.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  Future<AdminPromotion> createPromotion({required int listingId, required int packageId}) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/promotions/',
+        data: {'listing': listingId, 'package': packageId},
+      );
+      return AdminPromotion.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// `createdAfter`/`createdBefore` map to `?created_at__gte=`/`?created_at__lte=`.
+  Future<List<AdminTransaction>> fetchTransactions({
+    String? status,
+    DateTime? createdAfter,
+    DateTime? createdBefore,
+  }) async {
+    try {
+      final response = await _api.dio.get<Map<String, dynamic>>(
+        '/admin/transactions/',
+        queryParameters: {
+          'status': ?status,
+          'created_at__gte': ?createdAfter?.toIso8601String(),
+          'created_at__lte': ?createdBefore?.toIso8601String(),
+          'page_size': 50,
+        },
+      );
+      final results = response.data!['results'] as List<dynamic>;
+      return results.map((e) => AdminTransaction.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
+
+  /// A `completed` transaction (the default) immediately activates its promotion.
+  Future<AdminTransaction> createTransaction({
+    required int userId,
+    required int promotionId,
+    required String amount,
+    required String method,
+    String currency = 'USD',
+    String? reference,
+  }) async {
+    try {
+      final response = await _api.dio.post<Map<String, dynamic>>(
+        '/admin/transactions/',
+        data: {
+          'user': userId,
+          'promotion': promotionId,
+          'amount': amount,
+          'method': method,
+          'currency': currency,
+          'reference': ?reference,
+        },
+      );
+      return AdminTransaction.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw _api.mapError(e);
+    }
+  }
 }
 
 final adminRepositoryProvider = Provider<AdminRepository>((ref) => AdminRepository(ref));
