@@ -1,6 +1,7 @@
 import hashlib
 
 from django.conf import settings
+from django.db import transaction
 from django.db.models import F
 from django.utils import timezone
 
@@ -34,18 +35,25 @@ def record_event(
         if already_seen:
             return None
 
-    event = ListingEvent.objects.create(
-        listing=listing, kind=kind, user=user, ip_hash=ip_hash or ""
-    )
-
-    stat, _ = ListingDailyStat.objects.get_or_create(listing=listing, date=now.date())
-    if kind == ListingEventKind.VIEW:
-        listing.__class__.objects.filter(pk=listing.pk).update(views_count=F("views_count") + 1)
-        ListingDailyStat.objects.filter(pk=stat.pk).update(views=F("views") + 1)
-    elif kind in CONTACT_KINDS:
-        listing.__class__.objects.filter(pk=listing.pk).update(
-            contacts_count=F("contacts_count") + 1
+    # Three separate writes (the event log, the denormalised `Listing` counter, and the
+    # `ListingDailyStat` daily rollup) all need to land together — brief P12 item 6's
+    # "owner stats and admin KPIs agree on the same numbers" only holds if they can never
+    # partially apply (a dropped connection between any two of these would otherwise leave
+    # `Listing.views_count` disagreeing with the `ListingDailyStat` sum it's supposed to
+    # match, which owner stats and admin KPIs each read from a different one of).
+    with transaction.atomic():
+        event = ListingEvent.objects.create(
+            listing=listing, kind=kind, user=user, ip_hash=ip_hash or ""
         )
-        ListingDailyStat.objects.filter(pk=stat.pk).update(contacts=F("contacts") + 1)
+
+        stat, _ = ListingDailyStat.objects.get_or_create(listing=listing, date=now.date())
+        if kind == ListingEventKind.VIEW:
+            listing.__class__.objects.filter(pk=listing.pk).update(views_count=F("views_count") + 1)
+            ListingDailyStat.objects.filter(pk=stat.pk).update(views=F("views") + 1)
+        elif kind in CONTACT_KINDS:
+            listing.__class__.objects.filter(pk=listing.pk).update(
+                contacts_count=F("contacts_count") + 1
+            )
+            ListingDailyStat.objects.filter(pk=stat.pk).update(contacts=F("contacts") + 1)
 
     return event

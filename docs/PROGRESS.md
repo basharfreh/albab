@@ -1038,3 +1038,34 @@ Same multi-session day, continuing per the user's "كمل حسب الخطة" ("c
 - The WCAG contrast-token decision (previous entry) and the Linux-desktop integration-test build blocker (two entries ago) are both still open and still need the user's/a future session's input.
 - If another paginated list ever gets added to this app, use `PaginationFooter` from the start rather than reintroducing the plain-`CircularProgressIndicator` footer this entry just removed from the two that had it.
 - Postgres+Redis are systemd-managed inside Ubuntu, same 6 users/60 listings/4 neighborhoods, untouched by this session.
+
+---
+
+## 2026-09-12 — P12 — Analytics review (item 6): a real cross-consistency bug found and fixed
+
+Same day, continuing per "كمل حسب الخطة" after the offline/failure-UI entry above. Picked up P12 item 6: "confirm owner stats and admin KPIs agree on the same numbers." Backend-only this slice — nothing in either Flutter app changed, since both already just display whatever the API returns.
+
+**Traced every place a "views"/"contacts" number actually comes from**, to find what could make two of them disagree:
+- `Listing.views_count`/`contacts_count` — denormalised per-listing lifetime counters. Read by the admin's "أكثر العقارات مشاهدة" table (`AdminListingQueueView.ordering_fields`, sorts by `views_count`) and by the mobile "عقاراتي" row's views count.
+- `ListingDailyStat.views`/`contacts` — per-listing-per-day rows. Summed by `owner_listing_stats` (P10's mobile stats screen) *and* `admin_visits_series` (P11's dashboard chart) — the same table, two different aggregations.
+- All three only ever get written from one place: `apps/analytics/services/events.py`'s `record_event`.
+
+**The bug**: `record_event` made three separate writes — `ListingEvent.objects.create(...)`, `ListingDailyStat.objects.get_or_create(...)` + an `.update()`, and a `Listing.objects.filter(...).update(...)` — with no transaction around any of them. `grep`ping the whole backend for `transaction.atomic` found zero existing usages anywhere in this project, so this was never a deliberate omission, just never noticed: a dropped connection or a deadlock between any two of those three writes would leave `Listing.views_count` permanently disagreeing with what `ListingDailyStat` (and so both the owner stats screen and the admin visits chart) says — the exact failure mode this brief item exists to catch. **Fixed** by wrapping all three writes in one `transaction.atomic()` block (`apps/analytics/services/events.py`) — they now either all land together or none do.
+- Did not touch the *separate*, pre-existing "two concurrent requests could both pass the throttle check before either commits" race in the same function (a real but different issue — a narrow double-count window, not a cross-table consistency one). Left alone deliberately, matching this project's own precedent for an analogous race in P5's phone-registration flow (see that entry above: "out of scope... the unique constraint is the last line of defense... concurrency control [wasn't] the fix requested").
+
+**Two new backend tests** (`apps/analytics/tests/test_events.py`) prove the fix rather than just asserting it compiles:
+- `test_denormalized_counters_stay_in_sync_with_the_daily_rollup` — posts a mix of view/call/whatsapp events (two views from different IPs, so neither gets throttled) and asserts `Listing.views_count`/`contacts_count` exactly equal `Sum(ListingDailyStat.views/contacts)` for that listing.
+- `test_owner_totals_and_the_admin_visits_series_agree_on_the_same_numbers` — goes through the *real* `/me/listings/stats/` and `/admin/analytics/visits/` endpoints (not just the model layer) for one owner's one listing and asserts both sides' 7-day totals match exactly — the actual brief wording, checked end to end.
+
+**Verified**
+- **Backend**: `black`/`ruff`/`manage.py check` all clean, **104/104 pytest** (102 pre-existing + 2 new) against the real WSL Postgres. No migration needed — this is a pure service-function change, no model/schema touched.
+- Did not live-test through the real running backend + both frontends this slice — the two new tests already exercise the real API endpoints (not mocks) end to end, which is the same strength of evidence a manual click-through would add, just faster and repeatable. Neither Flutter app's code changed, so there's nothing new to click through either.
+
+**Decisions / deviations**
+- Left the pre-existing view-throttle race alone — see above.
+- `docs/API.md` not touched — no request/response shape changed, only internal atomicity.
+
+**Next agent should**
+- P12 item 7 (release prep: app icons/splash, versioning, signed builds, dashboard static-web deploy) is the one P12 item with nothing done yet and no other item blocking it — but most of it is external-world decisions (store accounts, signing certificates/keystores, a hosting choice for the dashboard's static build) that need the user's input before an agent should just pick something.
+- The WCAG contrast-token decision and the Linux-desktop integration-test build blocker (both flagged in earlier P12 entries above) are both still open.
+- Postgres+Redis are systemd-managed inside Ubuntu, same 6 users/60 listings/4 neighborhoods, untouched by this session.
