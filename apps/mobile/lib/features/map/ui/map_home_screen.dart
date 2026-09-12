@@ -97,6 +97,23 @@ class _MapHomeScreenState extends ConsumerState<MapHomeScreen> {
         _error = e;
         _loading = false;
       });
+      // Brief P12 item 5: "cached last map results" — a pan/filter-change refetch failing
+      // (e.g. connectivity drops) already leaves `_markers` untouched (only the success path
+      // above overwrites it), so the map keeps showing the last good markers rather than
+      // going blank. That silence was itself the bug: nothing told the user they were
+      // looking at stale data. A snackbar with retry, not a full-screen error, since there's
+      // already something useful on screen.
+      if (_markers != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.mapMarkersRefreshFailed),
+            action: SnackBarAction(
+              label: AppLocalizations.of(context)!.commonRetry,
+              onPressed: _fetchMarkers,
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -598,14 +615,19 @@ class _ListingsListViewState extends ConsumerState<_ListingsListView> {
     }
   }
 
-  Future<void> _load({required bool reset}) async {
+  /// [requestedPage] defaults to the next page after the last one successfully loaded — kept
+  /// as an explicit parameter (rather than incrementing `_page` before the request, the way
+  /// this used to work) so a failed page can be *retried*, not silently skipped: `_page`
+  /// itself only advances on success, so tapping retry after a failure re-requests the exact
+  /// same page instead of the one after it.
+  Future<void> _load({required bool reset, int? requestedPage}) async {
     if (_loading) return;
+    final targetPage = reset ? 1 : (requestedPage ?? _page);
     setState(() {
       _loading = true;
       _error = null;
       if (reset) {
         _items.clear();
-        _page = 1;
         _hasMore = true;
       }
     });
@@ -613,12 +635,13 @@ class _ListingsListViewState extends ConsumerState<_ListingsListView> {
       final filters = ref.read(mapFiltersProvider);
       final result = await ref
           .read(listingsRepositoryProvider)
-          .fetchListings(filters, page: _page);
+          .fetchListings(filters, page: targetPage);
       if (!mounted) return;
       setState(() {
         _items.addAll(result.results);
         _hasMore = result.next != null;
         _loading = false;
+        _page = targetPage;
       });
     } catch (e) {
       if (!mounted) return;
@@ -631,8 +654,7 @@ class _ListingsListViewState extends ConsumerState<_ListingsListView> {
 
   Future<void> _loadMore() async {
     if (_loading || !_hasMore) return;
-    _page += 1;
-    await _load(reset: false);
+    await _load(reset: false, requestedPage: _page + 1);
   }
 
   @override
@@ -686,10 +708,7 @@ class _ListingsListViewState extends ConsumerState<_ListingsListView> {
         separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
         itemBuilder: (context, index) {
           if (index >= _items.length) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-              child: Center(child: CircularProgressIndicator()),
-            );
+            return PaginationFooter(hasError: _error != null, onRetry: _loadMore);
           }
           final listing = _items[index];
           return ListingCard(listing: listing, onTap: () => widget.onOpenDetail(listing.id));

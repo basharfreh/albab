@@ -2366,6 +2366,24 @@ abstract class AppLocalizations {
   /// **'إزالة من المفضلة'**
   String get favoriteRemove;
 
+  /// No description provided for @connectivityOffline.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد اتصال بالإنترنت'**
+  String get connectivityOffline;
+
+  /// No description provided for @paginationLoadMoreFailed.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذر تحميل المزيد، إعادة المحاولة'**
+  String get paginationLoadMoreFailed;
+
+  /// No description provided for @mapMarkersRefreshFailed.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذر تحديث النتائج — يتم عرض آخر نتائج محفوظة'**
+  String get mapMarkersRefreshFailed;
+
   /// No description provided for @messagesEmptyTitle.
   ///
   /// In ar, this message translates to:

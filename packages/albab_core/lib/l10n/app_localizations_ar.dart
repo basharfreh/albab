@@ -1252,6 +1252,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get favoriteRemove => 'إزالة من المفضلة';
 
   @override
+  String get connectivityOffline => 'لا يوجد اتصال بالإنترنت';
+
+  @override
+  String get paginationLoadMoreFailed => 'تعذر تحميل المزيد، إعادة المحاولة';
+
+  @override
+  String get mapMarkersRefreshFailed =>
+      'تعذر تحديث النتائج — يتم عرض آخر نتائج محفوظة';
+
+  @override
   String get messagesEmptyTitle => 'لا توجد رسائل بعد';
 
   @override

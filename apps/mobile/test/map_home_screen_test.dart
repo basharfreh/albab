@@ -5,6 +5,7 @@ import 'package:albab_mobile/features/discovery/data/geo_repository.dart';
 import 'package:albab_mobile/features/discovery/data/map_filters.dart';
 import 'package:albab_mobile/features/listing_detail/data/listing_detail_repository.dart';
 import 'package:albab_mobile/features/map/data/listings_repository.dart';
+import 'package:albab_mobile/features/map/ui/widgets/map_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -35,15 +36,45 @@ class _FakeListingsRepository extends ListingsRepository {
   MapFilters? lastMapFilters;
   MapFilters? lastListFilters;
 
+  /// When set, [fetchMapMarkers] throws instead of succeeding — one failure only, then
+  /// clears itself, so a test can drive "refetch fails once" without an infinite loop.
+  bool failNextMarkerFetch = false;
+
+  /// Per-page results, keyed by page number — only consulted when non-empty, so tests that
+  /// only ever set [listings] (single implicit page) keep working unmodified. Every request
+  /// for a page in [failListingPages] throws (it keeps failing until the test itself removes
+  /// the page, simulating "connectivity restored" — a plain fail-once flag would let an
+  /// automatic scroll-triggered retry silently succeed before a test ever gets to assert on
+  /// the failed state), so a test can assert a *manual* retry re-requests the same page
+  /// rather than skipping past it (brief P12 item 5: "retry on every failed request").
+  Map<int, List<Listing>> pagedListings = const {};
+  final Set<int> failListingPages = {};
+  final requestedListingPages = <int>[];
+
   @override
   Future<MapMarkersResult> fetchMapMarkers(MapFilters filters) async {
     lastMapFilters = filters;
+    if (failNextMarkerFetch) {
+      failNextMarkerFetch = false;
+      throw const ApiException(kind: ApiErrorKind.network);
+    }
     return MapMarkersResult(results: markers, truncated: false);
   }
 
   @override
   Future<Paginated<Listing>> fetchListings(MapFilters filters, {int page = 1}) async {
     lastListFilters = filters;
+    requestedListingPages.add(page);
+    if (failListingPages.contains(page)) {
+      throw const ApiException(kind: ApiErrorKind.network);
+    }
+    if (pagedListings.isNotEmpty) {
+      return Paginated<Listing>(
+        count: pagedListings.values.fold(0, (n, l) => n + l.length),
+        results: pagedListings[page] ?? const <Listing>[],
+        next: pagedListings.containsKey(page + 1) ? 'page=${page + 1}' : null,
+      );
+    }
     return Paginated<Listing>(count: listings.length, results: listings);
   }
 
@@ -270,4 +301,119 @@ void main() {
 
     expect(fakeRepo.events, [(101, ListingEventKind.view)]);
   });
+
+  testWidgets(
+    'a failed "load more" shows a retry row instead of a permanent spinner, and retrying '
+    're-requests the same page rather than skipping it (brief P12 item 5)',
+    (tester) async {
+      final page1 = [
+        for (var i = 1; i <= 20; i++)
+          Listing(
+            id: i,
+            title: 'عقار $i',
+            purpose: ListingPurpose.sale,
+            propertyType: PropertyType.house,
+            price: '10000.00',
+          ),
+      ];
+      final page2 = [
+        Listing(
+          id: 21,
+          title: 'عقار الصفحة الثانية',
+          purpose: ListingPurpose.sale,
+          propertyType: PropertyType.house,
+          price: '10000.00',
+        ),
+      ];
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authStateProvider.overrideWith(_FakeAuthNotifier.new),
+            authRepositoryProvider.overrideWith((ref) => _NoopAuthRepository(ref)),
+            listingsRepositoryProvider.overrideWith((ref) {
+              final repo = _FakeListingsRepository(ref);
+              repo.pagedListings = {1: page1, 2: page2};
+              repo.failListingPages.add(2);
+              fakeRepo = repo;
+              return repo;
+            }),
+          ],
+          child: const App(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('متابعة كضيف'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      await tester.tap(find.text('القائمة'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('عقار 1'), findsOneWidget);
+
+      // Jump straight to the bottom via the list's own `ScrollController`, not a simulated
+      // drag/fling — a fling's own deceleration fires the scroll listener an unpredictable
+      // number of times as it settles, which isn't something a test should have to model.
+      // Even a plain `jumpTo` fires the listener twice as it settles (a `ScrollPosition`
+      // internal — nothing specific to this screen), so one jump means two chained failed
+      // attempts, each its own microtask-deferred `await`; a plain `pump()`/`pump(50ms)`
+      // pair (the pattern every other test in this file uses) isn't enough real time for
+      // both to resolve and the widget tree to reflect the final error state.
+      final listController = tester.widget<ListView>(find.byType(ListView)).controller!;
+      listController.jumpTo(listController.position.maxScrollExtent);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(fakeRepo.requestedListingPages, [1, 2, 2]); // both attempts asked for page 2
+      expect(find.text('تعذر تحميل المزيد، إعادة المحاولة'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing); // not a permanent spinner
+
+      // "Connectivity restored" — now let page 2 succeed, then have the user retry manually.
+      fakeRepo.failListingPages.remove(2);
+      await tester.tap(find.text('تعذر تحميل المزيد، إعادة المحاولة'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      // The manual retry re-asked for the exact page that failed (page 2 again), never page 3.
+      expect(fakeRepo.requestedListingPages, [1, 2, 2, 2]);
+      expect(find.text('عقار الصفحة الثانية'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'a background marker refetch that fails while markers already exist keeps showing them '
+    'and offers a retry snackbar instead of going blank (brief P12 item 5)',
+    (tester) async {
+      final container = ProviderContainer(
+        overrides: [
+          authStateProvider.overrideWith(_FakeAuthNotifier.new),
+          authRepositoryProvider.overrideWith((ref) => _NoopAuthRepository(ref)),
+          listingsRepositoryProvider.overrideWith((ref) {
+            final repo = _FakeListingsRepository(ref);
+            repo.markers = const [_marker];
+            fakeRepo = repo;
+            return repo;
+          }),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const App()));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('متابعة كضيف'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.byType(MapPin), findsOneWidget); // the initial fetch succeeded
+
+      fakeRepo.failNextMarkerFetch = true;
+      container.read(mapFiltersProvider.notifier).setBbox('1,1,2,2');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.byType(MapPin), findsOneWidget); // still showing the last good markers
+      expect(find.text('تعذر تحديث النتائج — يتم عرض آخر نتائج محفوظة'), findsOneWidget);
+    },
+  );
 }

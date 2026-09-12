@@ -22,6 +22,14 @@ class App extends ConsumerWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       routerConfig: router,
+      // Brief P12 item 5: one banner at the root rather than every screen wiring its own —
+      // every route gets it for free.
+      builder: (context, child) => Column(
+        children: [
+          const ConnectivityBanner(),
+          Expanded(child: child ?? const SizedBox.shrink()),
+        ],
+      ),
     );
   }
 }

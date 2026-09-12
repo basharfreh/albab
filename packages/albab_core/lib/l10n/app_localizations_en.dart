@@ -1240,6 +1240,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favoriteRemove => 'Remove from favorites';
 
   @override
+  String get connectivityOffline => 'No internet connection';
+
+  @override
+  String get paginationLoadMoreFailed => 'Failed to load more, retry';
+
+  @override
+  String get mapMarkersRefreshFailed =>
+      'Couldn\'t refresh results — showing the last saved results';
+
+  @override
   String get messagesEmptyTitle => 'No messages yet';
 
   @override

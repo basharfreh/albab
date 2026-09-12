@@ -27,6 +27,7 @@ export 'src/models/paginated.dart';
 export 'src/models/user.dart';
 
 export 'src/providers/auth_state.dart';
+export 'src/providers/connectivity_provider.dart';
 export 'src/providers/providers.dart';
 
 export 'src/storage/prefs_storage.dart';
@@ -43,11 +44,13 @@ export 'src/theme/app_typography.dart';
 export 'src/widgets/app_badge.dart';
 export 'src/widgets/app_dropdown.dart';
 export 'src/widgets/app_text_field.dart';
+export 'src/widgets/connectivity_banner.dart';
 export 'src/widgets/counter_field.dart';
 export 'src/widgets/empty_state.dart';
 export 'src/widgets/error_state.dart';
 export 'src/widgets/listing_card.dart';
 export 'src/widgets/loading_skeleton.dart';
+export 'src/widgets/pagination_footer.dart';
 export 'src/widgets/price_range_slider.dart';
 export 'src/widgets/primary_button.dart';
 export 'src/widgets/property_stats_row.dart';

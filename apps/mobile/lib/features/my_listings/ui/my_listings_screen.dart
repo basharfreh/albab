@@ -99,14 +99,19 @@ class _MyListingsTabState extends ConsumerState<_MyListingsTab>
     }
   }
 
-  Future<void> _load({required bool reset}) async {
+  /// [requestedPage] defaults to the next page after the last one successfully loaded — kept
+  /// as an explicit parameter (rather than incrementing `_page` before the request, the way
+  /// this used to work) so a failed page can be *retried*, not silently skipped: `_page`
+  /// itself only advances on success, so tapping retry after a failure re-requests the exact
+  /// same page instead of the one after it (same fix as `MapHomeScreen`'s own list view).
+  Future<void> _load({required bool reset, int? requestedPage}) async {
     if (_loading) return;
+    final targetPage = reset ? 1 : (requestedPage ?? _page);
     setState(() {
       _loading = true;
       _error = null;
       if (reset) {
         _items.clear();
-        _page = 1;
         _hasMore = true;
       }
     });
@@ -126,13 +131,14 @@ class _MyListingsTabState extends ConsumerState<_MyListingsTab>
       }
       final result = await repo.fetchMyListings(
         status: widget.statuses?.first,
-        page: _page,
+        page: targetPage,
       );
       if (!mounted) return;
       setState(() {
         _items.addAll(result.results);
         _hasMore = result.next != null;
         _loading = false;
+        _page = targetPage;
       });
     } catch (e) {
       if (!mounted) return;
@@ -145,8 +151,7 @@ class _MyListingsTabState extends ConsumerState<_MyListingsTab>
 
   Future<void> _loadMore() async {
     if (_loading || !_hasMore || _isMultiStatus) return;
-    _page += 1;
-    await _load(reset: false);
+    await _load(reset: false, requestedPage: _page + 1);
   }
 
   Future<void> _delete(Listing listing) async {
@@ -238,10 +243,7 @@ class _MyListingsTabState extends ConsumerState<_MyListingsTab>
         separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
         itemBuilder: (context, index) {
           if (index >= _items.length) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-              child: Center(child: CircularProgressIndicator()),
-            );
+            return PaginationFooter(hasError: _error != null, onRetry: _loadMore);
           }
           final listing = _items[index];
           return MyListingRow(
