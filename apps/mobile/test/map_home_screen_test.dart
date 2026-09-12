@@ -137,6 +137,20 @@ void main() {
     expect(find.byIcon(Icons.list_outlined), findsOneWidget);
   });
 
+  testWidgets(
+    'the filter and notifications overlay buttons expose accessible tooltips (brief P12 item 4)',
+    (tester) async {
+      await tester.pumpWidget(ProviderScope(overrides: overrides(), child: const App()));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('متابعة كضيف'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.byTooltip('البحث والتصفية'), findsOneWidget);
+      expect(find.byTooltip('الإشعارات'), findsOneWidget);
+    },
+  );
+
   testWidgets('an empty area shows the "no properties" empty state', (tester) async {
     await tester.pumpWidget(ProviderScope(overrides: overrides(), child: const App()));
     await tester.pumpAndSettle();

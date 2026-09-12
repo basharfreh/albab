@@ -1234,6 +1234,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favoritesRemoved => 'Removed from favorites';
 
   @override
+  String get favoriteAdd => 'Add to favorites';
+
+  @override
+  String get favoriteRemove => 'Remove from favorites';
+
+  @override
   String get messagesEmptyTitle => 'No messages yet';
 
   @override
@@ -1283,6 +1289,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsEditProfile => 'Edit profile';
+
+  @override
+  String get settingsChangeAvatar => 'Change profile photo';
 
   @override
   String get settingsChangePassword => 'Change password';

@@ -90,18 +90,24 @@ class _FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Material(
       color: Colors.black.withValues(alpha: 0.35),
       shape: const CircleBorder(),
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onToggle,
-        child: Padding(
-          padding: const EdgeInsets.all(6),
-          child: Icon(
-            isFavorited ? Icons.favorite : Icons.favorite_border,
-            color: isFavorited ? AppColors.danger : Colors.white,
-            size: 18,
+      child: Tooltip(
+        message: isFavorited ? l10n.favoriteRemove : l10n.favoriteAdd,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onToggle,
+          // 48dp minimum touch target (brief P12 item 4) even though the icon itself is 18px.
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Icon(
+              isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: isFavorited ? AppColors.danger : Colors.white,
+              size: 18,
+            ),
           ),
         ),
       ),

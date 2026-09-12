@@ -27,11 +27,27 @@ class _LoadingSkeletonState extends State<LoadingSkeleton> with SingleTickerProv
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 900),
-  )..repeat(reverse: true);
+  );
   late final Animation<double> _opacity = Tween<double>(
     begin: 0.4,
     end: 1.0,
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Brief P12 item 4: "reduced-motion respected" — a static mid-tone box reads just as
+    // clearly as a loading placeholder without the pulse a `disableAnimations` user asked not
+    // to see.
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
+    if (reduceMotion) {
+      _controller
+        ..stop()
+        ..value = 0.7;
+    } else if (!_controller.isAnimating) {
+      _controller.repeat(reverse: true);
+    }
+  }
 
   @override
   void dispose() {

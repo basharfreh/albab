@@ -343,10 +343,16 @@ class _TopOverlay extends StatelessWidget {
               child: MapSearchField(controller: controller, onSubmitted: onSubmitted),
             ),
             const SizedBox(width: AppSpacing.sm),
-            _OverlayIconButton(icon: Icons.tune, showDot: hasActiveFilters, onTap: onFilterTap),
+            _OverlayIconButton(
+              icon: Icons.tune,
+              tooltip: AppLocalizations.of(context)!.filterTitle,
+              showDot: hasActiveFilters,
+              onTap: onFilterTap,
+            ),
             const SizedBox(width: AppSpacing.sm),
             _OverlayIconButton(
               icon: Icons.notifications_outlined,
+              tooltip: AppLocalizations.of(context)!.accountNotifications,
               count: unreadNotifications,
               onTap: () {},
             ),
@@ -358,9 +364,16 @@ class _TopOverlay extends StatelessWidget {
 }
 
 class _OverlayIconButton extends StatelessWidget {
-  const _OverlayIconButton({required this.icon, this.showDot = false, this.count = 0, this.onTap});
+  const _OverlayIconButton({
+    required this.icon,
+    required this.tooltip,
+    this.showDot = false,
+    this.count = 0,
+    this.onTap,
+  });
 
   final IconData icon;
+  final String tooltip;
   final bool showDot;
   final int count;
   final VoidCallback? onTap;
@@ -372,28 +385,36 @@ class _OverlayIconButton extends StatelessWidget {
       elevation: 2,
       shadowColor: Colors.black26,
       shape: const CircleBorder(),
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.sm),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Icon(icon, color: AppColors.textPrimary, size: 22),
-              if (showDot)
-                Positioned(
-                  top: -2,
-                  right: -2,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(color: AppColors.danger, shape: BoxShape.circle),
+      child: Tooltip(
+        message: tooltip,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          // 48dp minimum touch target (brief P12 item 4) even though the icon itself is 22px.
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Icon(icon, color: AppColors.textPrimary, size: 22),
+                if (showDot)
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: AppColors.danger,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
                   ),
-                ),
-              if (count > 0)
-                Positioned(top: -8, right: -8, child: AppBadge.count(count)),
-            ],
+                if (count > 0) Positioned(top: 4, right: 4, child: AppBadge.count(count)),
+              ],
+            ),
           ),
         ),
       ),

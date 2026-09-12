@@ -1246,6 +1246,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get favoritesRemoved => 'تمت الإزالة من المفضلة';
 
   @override
+  String get favoriteAdd => 'إضافة إلى المفضلة';
+
+  @override
+  String get favoriteRemove => 'إزالة من المفضلة';
+
+  @override
   String get messagesEmptyTitle => 'لا توجد رسائل بعد';
 
   @override
@@ -1293,6 +1299,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsEditProfile => 'تعديل الملف الشخصي';
+
+  @override
+  String get settingsChangeAvatar => 'تغيير الصورة الشخصية';
 
   @override
   String get settingsChangePassword => 'تغيير كلمة المرور';

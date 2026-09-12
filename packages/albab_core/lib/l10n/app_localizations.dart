@@ -2354,6 +2354,18 @@ abstract class AppLocalizations {
   /// **'تمت الإزالة من المفضلة'**
   String get favoritesRemoved;
 
+  /// No description provided for @favoriteAdd.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة إلى المفضلة'**
+  String get favoriteAdd;
+
+  /// No description provided for @favoriteRemove.
+  ///
+  /// In ar, this message translates to:
+  /// **'إزالة من المفضلة'**
+  String get favoriteRemove;
+
   /// No description provided for @messagesEmptyTitle.
   ///
   /// In ar, this message translates to:
@@ -2449,6 +2461,12 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تعديل الملف الشخصي'**
   String get settingsEditProfile;
+
+  /// No description provided for @settingsChangeAvatar.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير الصورة الشخصية'**
+  String get settingsChangeAvatar;
 
   /// No description provided for @settingsChangePassword.
   ///

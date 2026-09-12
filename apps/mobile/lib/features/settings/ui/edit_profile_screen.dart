@@ -113,12 +113,24 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   child: Material(
                     color: AppColors.primary,
                     shape: const CircleBorder(),
-                    child: InkWell(
-                      customBorder: const CircleBorder(),
-                      onTap: _pickAvatar,
-                      child: const Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Icon(Icons.camera_alt_outlined, size: 16, color: AppColors.surface),
+                    child: Tooltip(
+                      message: l10n.settingsChangeAvatar,
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: _pickAvatar,
+                        // 48dp minimum touch target (brief P12 item 4) even though the icon
+                        // itself is 16px.
+                        child: const SizedBox(
+                          width: 48,
+                          height: 48,
+                          child: Center(
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              size: 16,
+                              color: AppColors.surface,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),

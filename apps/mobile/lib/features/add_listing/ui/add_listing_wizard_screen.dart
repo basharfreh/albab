@@ -268,6 +268,7 @@ class _AddListingWizardScreenState
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
+                      tooltip: AppLocalizations.of(context)!.commonBack,
                       onPressed: _busy ? null : _handleBack,
                     ),
                     Expanded(child: WizardStepHeader(currentStep: draft.step)),

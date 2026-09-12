@@ -349,6 +349,7 @@ class _PhotoTile extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.delete_outline, color: AppColors.danger),
+              tooltip: l10n.commonDelete,
               onPressed: onDelete,
             ),
           ],

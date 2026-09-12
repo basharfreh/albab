@@ -163,9 +163,11 @@ class _GalleryIconButton extends StatelessWidget {
         onTap: onTap,
         child: Tooltip(
           message: tooltip,
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.sm),
-            child: Icon(icon, color: iconColor, size: AppIconSizes.navAndList),
+          // 48dp minimum touch target (brief P12 item 4) even though the icon itself is 22px.
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Center(child: Icon(icon, color: iconColor, size: AppIconSizes.navAndList)),
           ),
         ),
       ),

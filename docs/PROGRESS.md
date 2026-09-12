@@ -945,3 +945,57 @@ Fresh session, no memory of prior ones — recovered state from this file, `git 
 - P12 item 4 (accessibility/polish: semantic labels on icon buttons, 48dp touch targets, contrast check, `MediaQuery.textScaler` up to 1.3 without overflow, reduced-motion) and item 5 (offline/failure behavior: cached last map results, connectivity banner, retry on every failed request, no infinite spinners) are both still untouched — natural next slices.
 - P12 item 6 (analytics review: confirm owner stats and admin KPIs agree on the same numbers) and item 7 (release: icons/splash, versioning, signed builds, dashboard static-web deploy) are also both still untouched.
 - Postgres+Redis are systemd-managed inside Ubuntu, same 6 users/60 listings/4 neighborhoods, untouched by this session (nothing here talked to the live backend at all — every test in this slice uses a fake repository).
+
+---
+
+## 2026-09-12 — P12 — Flutter hardening: accessibility pass (item 4), one design-token decision flagged rather than made unilaterally
+
+Same session, continuing straight from the entry above per the user's "continue by the plan in folder" instruction. Picked up P12 item 4 next (semantic labels on icon buttons, 48dp touch targets, contrast check, `MediaQuery.textScaler` up to 1.3, reduced-motion).
+
+**Icon buttons: missing tooltips/semantic labels found and fixed**
+- Audited every `IconButton`/bare `InkWell`-wrapping-`Icon` affordance across `apps/mobile/lib` (`packages/albab_core` has none). Found and fixed five real gaps, all icon-only actions a screen reader previously had no label for: the wizard's back button (`add_listing_wizard_screen.dart`), the photo-delete button (`step3_photos.dart`), the map screen's filter/tune and notifications-bell overlay buttons (`map_home_screen.dart`'s `_OverlayIconButton`), the gallery's back/share/favorite buttons' underlying widget (`listing_gallery.dart`'s `_GalleryIconButton` — the *call sites* already passed a `tooltip` string, but the widget itself wasn't rendering one), and the edit-profile avatar-camera button (`edit_profile_screen.dart`). Two new l10n keys added for these (`favoriteAdd`/`favoriteRemove`, `settingsChangeAvatar`) in both `app_ar.arb`/`app_en.arb`, regenerated via `flutter gen-l10n`; the rest reused existing keys (`commonBack`, `commonDelete`, `filterTitle`, `accountNotifications`).
+- `_GalleryOverflowButton` (the ⋮ report menu) and the two `IconButton`s in `step3_photos.dart`'s camera/gallery row were already correct — not touched.
+
+**48dp minimum touch targets (brief P12 item 4) — five real gaps found and fixed**
+- `listing_card.dart`'s `_FavoriteButton` (used by every `ListingCard` — map peek, results list, favorites grid, similar-listings strip): was an 18px icon in 6px padding (≈30px tappable). Now a 48×48 tap target, icon still 18px and centered.
+- `map_home_screen.dart`'s `_OverlayIconButton` (filter/bell): was 22px icon in 8px padding (≈38px). Now 48×48, with the active-filter dot and unread-count badge repositioned to still sit at the button's corner.
+- `listing_gallery.dart`'s `_GalleryIconButton` (back/share/favorite over the photo gallery): same 22px-in-8px-padding gap, same fix.
+- `edit_profile_screen.dart`'s avatar-camera button: was a 16px icon in 6px padding (≈28px). Now 48×48.
+- `_GalleryOverflowButton` (`PopupMenuButton` with an `icon:`) and every `IconButton`/`_NavItem`/`_AddButton` elsewhere were already compliant — Flutter's real `IconButton` enforces a 48dp minimum by default, and the bottom nav's tap targets are full Row segments, both already well over 48dp.
+
+**Reduced motion (brief P12 item 4) — one real gap found and fixed**
+- `packages/albab_core/lib/src/widgets/loading_skeleton.dart`'s `LoadingSkeleton` (used by every list/map loading state via `ListingCardSkeleton`) pulsed via a repeating `AnimationController` unconditionally — the platform's `MediaQuery.disableAnimations` (macOS/iOS "Reduce Motion", Android "Remove animations") was never consulted. Fixed: the controller now stops and holds a fixed mid-opacity (0.7) when `disableAnimations` is true, checked in `didChangeDependencies` (not the field initializer, which runs before `context` exists) so it also reacts if the setting changes live while a skeleton is on screen. New test file `packages/albab_core/test/loading_skeleton_test.dart` (2 tests) proves both branches — pulses over time normally, holds a fixed opacity under reduced motion — rather than trusting a visual read of one frame.
+- No custom `AnimationController`/`AnimatedContainer`/`AnimatedOpacity`/`AnimatedSwitcher` usage exists anywhere else in `apps/mobile` (`grep`-confirmed) — `LoadingSkeleton` was the only place brief P12 item 4's "reduced-motion respected" actually applied.
+
+**`MediaQuery.textScaler` up to 1.3 without overflow — verified, no bugs found this time**
+- New `apps/mobile/test/text_scaling_test.dart` (6 tests) pumps `ListingCard` (both layouts), `PropertyStatsRow`, `BottomNavBar`, `FilterScreen`, and `AccountScreen` at a 1.3x linear text scale and asserts no exception (i.e. no `RenderFlex` overflow) is thrown. These five were picked because each has already had at least one real *narrow-width* overflow bug found and fixed somewhere in this project's history (see the P11 entries above) — the same fixed-width `Row`s are the highest-risk surface for a *larger* text scale too, not an arbitrary sample. All six pass as-is; no fix was needed.
+
+**Contrast check against the design tokens (brief P12 item 4) — a real finding, deliberately not acted on unilaterally**
+- Computed WCAG 2.1 relative-luminance contrast ratios by hand for every text-color token in `packages/albab_core/lib/src/theme/app_colors.dart` against the two backgrounds text actually sits on (`AppColors.surface` #FFFFFF and `AppColors.background` #F4F6F8):
+
+  | Foreground | On surface | On background | WCAG AA (normal text, 4.5:1) |
+  |---|---|---|---|
+  | `textPrimary` #1A1D22 | 16.9:1 | 15.6:1 | pass |
+  | `textSecondary` #6B7280 (`AppTypography.caption`'s color) | 4.83:1 | **4.47:1** | pass on surface, **fails by a hair directly on `background`** |
+  | `textMuted` #9AA1AC | **2.60:1** | **2.40:1** | **fails outright, on either background** |
+  | `primary` #1B8B4C (the green price text, `AppTypography.section` at 16px/600 — not "bold" enough at weight 600 to count as WCAG "large text") | **4.34:1** | — | **fails for normal-size text** (passes the looser 3:1 large-text/UI-component threshold) |
+  | `danger` #E14B4B (error/field-error text) | **3.96:1** | — | **fails for normal-size text** (passes 3:1 large-text/UI-component) |
+
+  `textMuted` is the clearest real bug (badly fails even the loosest 3:1 UI-component threshold); `primary`-on-white and `danger`-on-white are borderline fails specifically for *small* text (the price is genuinely prominent/large in practice, so this mostly matters if that green or red is ever reused at body-text size); `textSecondary`-on-`background` fails by under 0.04:1 and only matters where caption text sits directly on the bare scaffold rather than inside a white `Card` (most of the app).
+- **Deliberately not changed.** `app_colors.dart`'s own doc comment says these are "Fixed design-token colors from the approved mockup (brief §9). Do not add a color that isn't listed here" — nothing in that says a color can be freely *darkened* for contrast either, and doing so would change the app's visual identity (the brand green, the error red) across both `apps/mobile` and `apps/dashboard` without a design sign-off. This is exactly the kind of call this file exists to flag rather than make silently. **A future session (or the user directly) should decide**: darken `textMuted`/`primary`/`danger` slightly, accept the gap as intentional brand-color tradeoff, or restrict the failing colors to large/bold text and icons only.
+
+**Verified**
+- **Static**: `flutter analyze` clean in all three Dart packages.
+- `flutter test`: **albab_core 13/13** (11 pre-existing + 2 new `loading_skeleton_test.dart`), **apps/mobile 64/64** (57 from the entry above + 6 new `text_scaling_test.dart` + 1 new tooltip-assertion case added to `map_home_screen_test.dart`). Regenerated the 3 `ListingCard` goldens whose pixels changed from the 48dp favorite-button fix (`listing_card_vertical_ar.png`/`_en.png`, `listing_card_horizontal_ar.png`) and visually re-inspected them — the button is now visibly larger with the heart icon still centered, nothing else shifted.
+- Did not live-test against the real backend this slice — every change here is either a pure-Dart/layout fix provable by widget test, or a static contrast computation; no backend contract changed.
+
+**Decisions / deviations**
+- Contrast findings documented, not fixed — see above, the one deliberate non-action this session took.
+- Used 48×48 (not 44 or some other "close enough" size) everywhere for consistency with Flutter's own `IconButton` default minimum and the brief's explicit "48dp" wording.
+
+**Next agent should**
+- Decide on the contrast findings above (darken tokens vs. accept vs. restrict to large text/icons) — this is a product/design call, not an engineering one.
+- P12 item 5 (offline/failure behavior: cached last map results, connectivity banner, retry on every failed request, no infinite spinners) is the natural next slice — completely untouched.
+- P12 item 6 (analytics review) and item 7 (release prep) are also still untouched.
+- The Linux desktop integration-test build blocker from the entry above is also still open.
+- Postgres+Redis are systemd-managed inside Ubuntu, same 6 users/60 listings/4 neighborhoods, untouched by this session (no backend or live-app testing was done this slice).
