@@ -1,0 +1,43 @@
+databases:
+  - name: albab-db
+    plan: free
+    databaseName: albab
+    user: albab
+
+services:
+  - type: redis
+    name: albab-redis
+    plan: free
+    ipAllowList: []
+
+  - type: web
+    name: albab-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -r requirements/prod.txt && python manage.py collectstatic --noinput"
+    startCommand: "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: albab-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: albab-redis
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      # Project-page GitHub Pages origin for the dashboard (apps/dashboard) — update this if
+      # the dashboard is ever moved to a custom domain, or add more origins comma-separated.
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://basharfreh.github.io"
+      - key: OTP_BACKEND
+        value: console
