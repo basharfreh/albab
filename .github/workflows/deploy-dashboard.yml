@@ -29,6 +29,17 @@ jobs:
           channel: stable
           flutter-version: 3.47.2
 
+      # albab_core's User/Listing/etc. models are @freezed + json_serializable — their
+      # .freezed.dart/.g.dart files are gitignored (never committed) and only ever existed on
+      # dev machines that had already run build_runner locally. A fresh CI checkout has none
+      # of them, so apps/dashboard fails to compile against "empty" model classes (confirmed:
+      # "The getter 'role' isn't defined for the type 'User'") unless generated here first.
+      - name: Generate code (albab_core)
+        working-directory: packages/albab_core
+        run: |
+          flutter pub get
+          dart run build_runner build --delete-conflicting-outputs
+
       - name: Install dependencies
         working-directory: apps/dashboard
         run: flutter pub get

@@ -6,7 +6,12 @@ plugins {
 
 android {
     namespace = "sy.albab.albab_mobile"
-    compileSdk = flutter.compileSdkVersion
+    // Pinned rather than left at flutter.compileSdkVersion's default — the
+    // flutter_secure_storage plugin's own build.gradle requires compileSdk 37, and letting
+    // the app module target a lower version than a plugin it depends on causes a Gradle
+    // resolution mismatch (confirmed on this build: "requires Android SDK version 37 or
+    // higher").
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -20,7 +25,8 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        // Kept aligned with compileSdk above (targetSdk can't exceed compileSdk).
+        targetSdk = 37
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
         // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
