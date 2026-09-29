@@ -1,0 +1,34 @@
+name: Seed backend database (one-off, manual)
+
+# Manual-only utility: runs seed_users/seed_catalog against a database reachable via the
+# DATABASE_URL secret. Exists because direct psql/manage.py connections from this project's
+# dev machine to Render's external Postgres endpoint fail at the network level (TCP/ICMP
+# succeed, but the Postgres wire-protocol handshake gets dropped) — GitHub Actions runners
+# hit a completely different network path, sidestepping that without having to diagnose it.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pip install -r requirements/base.txt
+
+      - name: Migrate + seed
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: seed-workflow-temporary-key
+          ALLOWED_HOSTS: localhost
+        run: |
+          python manage.py migrate --noinput
+          python manage.py seed_users
+          python manage.py seed_catalog
